@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_vehicle"
+        android:title="Vehicle"
+        android:icon="@drawable/ic_vehicle" />
+    <item
+        android:id="@+id/nav_maintenance"
+        android:title="Maintenance"
+        android:icon="@drawable/ic_maintenance" />
+    <item
+        android:id="@+id/nav_trip"
+        android:title="Trip"
+        android:icon="@drawable/ic_trip" />
+    <item
+        android:id="@+id/nav_live_data"
+        android:title="Live Data"
+        android:icon="@drawable/ic_live_data" />
+</menu>
