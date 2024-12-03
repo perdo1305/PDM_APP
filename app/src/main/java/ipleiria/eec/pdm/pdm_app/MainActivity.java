@@ -2,8 +2,12 @@ package ipleiria.eec.pdm.pdm_app;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -138,9 +142,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void showAboutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("About")
-                .setMessage("This project is about a Vehicle Maintenance & Trip Tracker App\n\nAuthors: Pedro Ferreira & Bernardo Santos\n\nhttps://github.com/perdo1305/PDM_APP.git")
-                .setPositiveButton("OK", null);
+        builder.setTitle("About");
+
+        // Inflate the custom layout
+        View view = getLayoutInflater().inflate(R.layout.dialog_about, null);
+        builder.setView(view);
+
+        // Make the link clickable
+        TextView aboutText = view.findViewById(R.id.about_text);
+        aboutText.setMovementMethod(LinkMovementMethod.getInstance());
+
+        builder.setPositiveButton("OK", null);
         builder.create().show();
     }
 }
