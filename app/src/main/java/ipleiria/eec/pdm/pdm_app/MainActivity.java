@@ -68,21 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-<<<<<<< HEAD
-    int id = item.getItemId();
-    if (id == R.id.action_settings) {
-        Toast.makeText(this, R.string.settings_selected , Toast.LENGTH_SHORT).show();
-        return true;
-    } else if (id == R.id.action_help) {
-        Toast.makeText(this, R.string.help_selected , Toast.LENGTH_SHORT).show();
-        return true;
-    } else if (id == R.id.action_about) {
-        Toast.makeText(this, R.string.about_selected , Toast.LENGTH_SHORT).show();
-        return true;
-    } else {
-        return super.onOptionsItemSelected(item);
-    }
-=======
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             showSettingsDialog();
@@ -96,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return super.onOptionsItemSelected(item);
         }
->>>>>>> bernardo
     }
 
     private void showSettingsDialog() {
