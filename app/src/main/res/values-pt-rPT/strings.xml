@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_selected">\"Configurações\" Selecionado</string>
+    <string name="help_selected">\"Ajuda\" Selecionado</string>
+    <string name="about_selected">\"Sobre\" Selecionado</string>
+    <string name="fuel_cost">Custo Combustivel</string>
+    <string name="distance">Distância</string>
+    <string name="destination">Destino</string>
+    <string name="add_new_trip">Adicionar uma nova Rota</string>
+    <string name="add">Adicionar</string>
+    <string name="all_fields_are_required">Todos os campos são necessários!</string>
+    <string name="cancel">Cancelar</string>
+    <string name="app_name">PDM APP</string>
+</resources>

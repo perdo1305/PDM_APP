@@ -75,13 +75,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     int id = item.getItemId();
     if (id == R.id.action_settings) {
-        Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.settings_selected , Toast.LENGTH_SHORT).show();
         return true;
     } else if (id == R.id.action_help) {
-        Toast.makeText(this, "Help selected", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.help_selected , Toast.LENGTH_SHORT).show();
         return true;
     } else if (id == R.id.action_about) {
-        Toast.makeText(this, "About selected", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.about_selected , Toast.LENGTH_SHORT).show();
         return true;
     } else {
         return super.onOptionsItemSelected(item);

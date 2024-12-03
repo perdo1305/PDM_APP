@@ -54,30 +54,30 @@ public class TripMenuFragment extends Fragment {
         FloatingActionButton fabAddTrip = view.findViewById(R.id.fab_add_trip);
         fabAddTrip.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Add New Trip");
+            builder.setTitle(R.string.add_new_trip);
 
             // Input fields
             LinearLayout layout = new LinearLayout(getContext());
             layout.setOrientation(LinearLayout.VERTICAL);
 
             EditText inputDestination = new EditText(getContext());
-            inputDestination.setHint("Destination");
+            inputDestination.setHint(R.string.destination);
             layout.addView(inputDestination);
 
             EditText inputDistance = new EditText(getContext());
-            inputDistance.setHint("Distance");
+            inputDistance.setHint(R.string.distance);
             inputDistance.setInputType(InputType.TYPE_CLASS_TEXT);
             layout.addView(inputDistance);
 
             EditText inputFuelCost = new EditText(getContext());
-            inputFuelCost.setHint("Fuel Cost");
+            inputFuelCost.setHint(R.string.fuel_cost);
             inputFuelCost.setInputType(InputType.TYPE_CLASS_TEXT);
             layout.addView(inputFuelCost);
 
             builder.setView(layout);
 
             // Add buttons
-            builder.setPositiveButton("Add", (dialog, which) -> {
+            builder.setPositiveButton(R.string.add, (dialog, which) -> {
                 String destination = inputDestination.getText().toString();
                 String distance = inputDistance.getText().toString();
                 String fuelCost = inputFuelCost.getText().toString();
@@ -86,11 +86,11 @@ public class TripMenuFragment extends Fragment {
                     tripList.add(new Trip(destination, distance, fuelCost));
                     tripAdapter.notifyItemInserted(tripList.size() - 1);
                 } else {
-                    Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.all_fields_are_required , Toast.LENGTH_SHORT).show();
                 }
             });
 
-            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+            builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
 
             builder.show();
         });
