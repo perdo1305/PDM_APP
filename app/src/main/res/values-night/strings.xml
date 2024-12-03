@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<<<<<<< HEAD
     <string name="settings_selected">Settings selected</string>
     <string name="help_selected">Help selected</string>
     <string name="about_selected">About selected</string>
@@ -10,4 +11,9 @@
     <string name="add">Add</string>
     <string name="all_fields_are_required">All fields are required!</string>
     <string name="cancel">Cancel</string>
+=======
+    <string name="about">About</string>
+    <string name="help">Help</string>
+    <string name="settings">Settings</string>
+>>>>>>> bernardo
 </resources>
