@@ -12,8 +12,6 @@
     <string name="all_fields_are_required">All fields are required!</string>
     <string name="cancel">Cancel</string>
 
-    <string name="about">About</string>
-    <string name="help">Help</string>
-    <string name="settings">Settings</string>
+
 
 </resources>

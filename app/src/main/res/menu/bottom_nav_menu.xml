@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_vehicle"
-        android:title="Vehicle"
+        android:title="@string/vehicle"
         android:icon="@drawable/ic_vehicle" />
     <item
         android:id="@+id/nav_maintenance"
-        android:title="Maintenance"
+        android:title="@string/maintenance"
         android:icon="@drawable/ic_maintenance" />
     <item
         android:id="@+id/nav_trip"
-        android:title="Trip"
+        android:title="@string/trip"
         android:icon="@drawable/ic_trip" />
     <item
         android:id="@+id/nav_live_data"
-        android:title="Live Data"
+        android:title="@string/live_data"
         android:icon="@drawable/ic_live_data" />
 </menu>
