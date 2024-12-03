@@ -39,8 +39,8 @@ public class MaintenanceMenuFragment extends Fragment {
 
         // Sample data
         maintenanceList = new ArrayList<>();
-        maintenanceList.add(new Maintenance("Oil Change", "2024-11-01", "$50.00"));
-        maintenanceList.add(new Maintenance("Brake Pads Replacement", "2024-10-15", "$200.00"));
+        maintenanceList.add(new Maintenance("Oil Change", "2024-11-01", "50.00"));
+        maintenanceList.add(new Maintenance("Brake Pads Replacement", "2024-10-15", "200.00"));
 
         // Set adapter
         maintenanceAdapter = new MaintenanceAdapter(maintenanceList);
@@ -53,6 +53,9 @@ public class MaintenanceMenuFragment extends Fragment {
         return view;
     }
 
+    /**
+     * mostrar um dialogo para adicionar um novo registro de manutenção.
+     */
     private void showAddMaintenanceDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Add Maintenance Record");
@@ -94,6 +97,11 @@ public class MaintenanceMenuFragment extends Fragment {
         builder.show();
     }
 
+    /**
+     * mostrar um dialogo para editar um registro de manutenção.
+     * @param position
+     * @param maintenance
+     */
     private void showEditMaintenanceDialog(int position, Maintenance maintenance) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Edit Maintenance");
@@ -140,6 +148,10 @@ public class MaintenanceMenuFragment extends Fragment {
         builder.show();
     }
 
+    /**
+     * mostrar um dialogo de confirmação para excluir um registro de manutenção.
+     * @param position
+     */
     private void showDeleteConfirmationDialog(int position) {
         new AlertDialog.Builder(getContext())
                 .setTitle("Delete Maintenance Record")

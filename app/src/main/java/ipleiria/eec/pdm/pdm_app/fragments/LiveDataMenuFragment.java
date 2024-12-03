@@ -69,6 +69,9 @@ public class LiveDataMenuFragment extends Fragment {
         return view;
     }
 
+    /**
+     * configura a aparência do gráfico
+     */
     private void configureChartAppearance() {
         lineChart.getDescription().setEnabled(false);
         lineChart.setDrawGridBackground(false);
@@ -82,6 +85,10 @@ public class LiveDataMenuFragment extends Fragment {
         lineChart.getAxisRight().setEnabled(false);
     }
 
+    /**
+     * adiciona um valor ao gráfico
+     * @param value valor a ser adicionado
+     */
     private void addValueToChart(float value) {
         dataEntries.add(new Entry(dataEntries.size(), value));
         lineDataSet.notifyDataSetChanged();

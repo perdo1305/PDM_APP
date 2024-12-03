@@ -44,9 +44,8 @@ public class TripMenuFragment extends Fragment {
 
         // Populate sample data
         tripList = new ArrayList<>();
-        tripList.add(new Trip("City A to City B", "200 km", "$25.00"));
-        tripList.add(new Trip("City B to City C", "150 km", "$18.75"));
-        tripList.add(new Trip("City C to City D", "300 km", "$37.50"));
+        tripList.add(new Trip("Torres Novas to Leira", "58 km", "5.75"));
+        tripList.add(new Trip("Leira to Facho", "40 km", "7.50"));
 
         // Set adapter
         tripAdapter = new TripAdapter(tripList);
@@ -66,12 +65,12 @@ public class TripMenuFragment extends Fragment {
             layout.addView(inputDestination);
 
             EditText inputDistance = new EditText(getContext());
-            inputDistance.setHint("Distance (e.g., 200 km)");
+            inputDistance.setHint("Distance");
             inputDistance.setInputType(InputType.TYPE_CLASS_TEXT);
             layout.addView(inputDistance);
 
             EditText inputFuelCost = new EditText(getContext());
-            inputFuelCost.setHint("Fuel Cost (e.g., $25.00)");
+            inputFuelCost.setHint("Fuel Cost");
             inputFuelCost.setInputType(InputType.TYPE_CLASS_TEXT);
             layout.addView(inputFuelCost);
 
@@ -114,7 +113,10 @@ public class TripMenuFragment extends Fragment {
         return view;
     }
 
-    // Filter trips
+    /**
+     * filtra as viagens com base na pesquisa
+     * @param query texto de pesquisa
+     */
     private void filterTrips(String query) {
         List<Trip> filteredList = new ArrayList<>();
         for (Trip trip : tripList) {

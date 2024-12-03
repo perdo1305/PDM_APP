@@ -1,8 +1,15 @@
 package ipleiria.eec.pdm.pdm_app;
 
+import static java.security.AccessController.getContext;
+
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -57,4 +64,29 @@ public class MainActivity extends AppCompatActivity {
             bottomNav.setSelectedItemId(R.id.nav_vehicle);
         }
     }
+    // Inflate the menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    // Handle menu item clicks
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    int id = item.getItemId();
+    if (id == R.id.action_settings) {
+        Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show();
+        return true;
+    } else if (id == R.id.action_help) {
+        Toast.makeText(this, "Help selected", Toast.LENGTH_SHORT).show();
+        return true;
+    } else if (id == R.id.action_about) {
+        Toast.makeText(this, "About selected", Toast.LENGTH_SHORT).show();
+        return true;
+    } else {
+        return super.onOptionsItemSelected(item);
+    }
+    }
+
+
 }
