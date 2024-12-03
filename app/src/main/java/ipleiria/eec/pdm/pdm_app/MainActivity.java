@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         // Fragment Manager para troca manual de fragments
         bottomNav.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
-
+            //gfh
             if (item.getItemId() == R.id.nav_vehicle) {
                 selectedFragment = new VehicleMenuFragment();
             } else if (item.getItemId() == R.id.nav_maintenance) {
