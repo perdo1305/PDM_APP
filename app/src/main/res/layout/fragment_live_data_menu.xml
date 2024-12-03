@@ -20,7 +20,7 @@
         android:id="@+id/current_value_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current Value: N/A"
+        android:text="@string/current_value_n_a"
         android:textSize="18sp"
         android:layout_marginBottom="16dp" />
 
@@ -29,12 +29,12 @@
         android:id="@+id/input_value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter a value" />
+        android:hint="@string/enter_a_value" />
 
     <!-- Button to Add Data -->
     <Button
         android:id="@+id/add_value_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Value" />
+        android:text="@string/add_value" />
 </LinearLayout>

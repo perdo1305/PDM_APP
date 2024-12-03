@@ -25,7 +25,7 @@
             android:id="@+id/vehicle_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Vehicle Name"
+            android:text="@string/vehicle_name"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -33,6 +33,6 @@
             android:id="@+id/vehicle_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last maintenance: 1000km ago" />
+            android:text="@string/last_maintenance_1000km_ago" />
     </LinearLayout>
 </LinearLayout>
