@@ -16,9 +16,9 @@
     <string name="maintenance">Manutenção</string>
     <string name="trip">Viagem</string>
     <string name="live_data">Dados</string>
-    <string name="settings">Configurações</string>
-    <string name="help">Ajuda</string>
-    <string name="about">Sobre</string>
+    <string name="settings">⚙️ Configurações</string>
+    <string name="help">❔ Ajuda</string>
+    <string name="about">ⓘ Sobre</string>
     <string name="vehicle_name">Nome Veículo</string>
     <string name="last_maintenance_1000km_ago">Ultima manutenção: 1000km atrás</string>
     <string name="destination_xyz">Destino: XYZ</string>
