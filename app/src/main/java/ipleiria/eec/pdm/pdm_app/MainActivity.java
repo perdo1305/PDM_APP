@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showSettingsDialog() {
-        String[] options = {"Change Language", "Toggle Dark Mode"};
+        String[] options = {"\uD83C\uDF0D Change Language", "☯\uFE0E Toggle Dark Mode"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Settings")
+        builder.setTitle(" Settings")
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         showLanguageDialog();
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     private void showLanguageDialog() {
         String[] languages = {"\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F English", "\uD83C\uDDF5\uD83C\uDDF9 Portuguese", "\uD83C\uDDE9\uD83C\uDDEA German","\uD83C\uDDE8\uD83C\uDDF3 Chinese(simplied)"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Select Language")
+        builder.setTitle("\uD83C\uDF0D Select Language")
                 .setItems(languages, (dialog, which) -> {
                     switch (which) {
                         case 0:
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     private void showHelpDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Help")
-                .setMessage("Possible interactions:\n- Tap\n- Long Press\n- Swipe")
+                .setMessage(R.string.possible_interactions_tap_select_long_press_delete_swipe_return)
                 .setPositiveButton("OK", null);
         builder.create().show();
     }

@@ -18,5 +18,5 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add"
-        android:contentDescription="Add Vehicle" />
+        android:contentDescription="@string/add_vehicle" />
 </RelativeLayout>
