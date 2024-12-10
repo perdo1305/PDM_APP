@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PDM APP</string>
+    <string name="settings_selected">Einstellungen ausgewählt</string>
+    <string name="help_selected">Hilfe ausgewählt</string>
+    <string name="about_selected">über ausgewählte</string>
+    <string name="fuel_cost">Treibstoffkosten</string>
+    <string name="distance">Entfernung</string>
+    <string name="destination">Zielort</string>
+    <string name="add_new_trip">Neue Reise hinzufügen</string>
+    <string name="add">hinzufügen</string>
+    <string name="all_fields_are_required">alle Felder sind erforderlich</string>
+    <string name="cancel">kündigen</string>
+    <string name="this_project_is_about_a_vehicle_maintenance_trip_tracker_app_n_nauthors_pedro_ferreira_bernardo_santos_n_nhttps_github_com_perdo1305_pdm_app_git">...</string>
+    <string name="vehicle">Fahrzeug</string>
+    <string name="maintenance">Wartung</string>
+    <string name="live_data">Live Daten</string>
+    <string name="settings">⚙️ Einstellungen</string>
+    <string name="help">❔ Hilfe</string>
+    <string name="about">ⓘ über</string>
+    <string name="vehicle_name">Fahrzeugname</string>
+    <string name="last_maintenance_1000km_ago">Letzte Wartung: vor 1000km</string>
+    <string name="destination_xyz">Zielort: XYZ</string>
+    <string name="distance_xx_km">Entfernung: XX km</string>
+    <string name="fuel_cost_xx_xx">Kraftstoffkosten: XX.XX €</string>
+    <string name="service_type">Art der Dienstleistung</string>
+    <string name="date_yyyy_mm_dd">Datum: JJJJ-MM-TT</string>
+    <string name="cost_xx_xx">Kosten: €XX.XX</string>
+    <string name="add_vehicle">Fahrzeug hinzufügen</string>
+    <string name="add_trip">Reise hinzufügen</string>
+    <string name="add_maintenance_record">Wartungssatz hinzufügen</string>
+    <string name="current_value_n_a">Aktueller Wert: N/A</string>
+    <string name="enter_a_value">Einen Wert eingeben</string>
+    <string name="add_value">Mehrwert schaffen</string>
+    <string name="possible_interactions_tap_select_long_press_delete_swipe_return">Mögliche Wechselwirkungen</string>
+    <string name="trip">Reise</string>
+</resources>
