@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PDM APP</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve"
+        translatable="false">AIzaSyAt5ic-4_EbBWH9sZbylI1x-XZzAgApKcY</string>
 
     <string name="settings_selected">Settings selected</string>
     <string name="help_selected">Help selected</string>
