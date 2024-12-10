@@ -30,24 +30,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     @Override
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
         Trip trip = tripList.get(position);
-        holder.tripDestination.setText("Destination: " + trip.getDestination());
-        holder.tripDistance.setText("Distance: " + trip.getDistance());
-        holder.tripFuelCost.setText("Fuel Cost: " + trip.getFuelCost());
-
-        // Long press to delete
-        holder.itemView.setOnLongClickListener(v -> {
-            new AlertDialog.Builder(holder.itemView.getContext())
-                    .setTitle("Delete Trip")
-                    .setMessage("Are you sure you want to delete this trip?")
-                    .setPositiveButton("Yes", (dialog, which) -> {
-                        tripList.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, tripList.size());
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
-
-            return true;
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) listener.onItemClick(position);
         });
     }
 
@@ -66,4 +50,16 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
             tripFuelCost = itemView.findViewById(R.id.trip_fuel_cost);
         }
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+    }
+
+
 }
