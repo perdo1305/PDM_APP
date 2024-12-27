@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -33,30 +32,24 @@ import ipleiria.eec.pdm.pdm_app.R;
 import ipleiria.eec.pdm.pdm_app.manager.Vehicle;
 import ipleiria.eec.pdm.pdm_app.manager.VehicleAdapter;
 
-/**
- * Fragmento para gerir a lista de veículos.
- * Permite adicionar, editar e remover veículos.
- */
 public class VehicleMenuFragment extends Fragment {
     private RecyclerView vehicleRecyclerView;
     private VehicleAdapter vehicleAdapter;
     private List<Vehicle> vehicleList;
+    private ImageView selectedImageView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_vehicle_menu, container, false);
 
-        // Initialize RecyclerView
         vehicleRecyclerView = view.findViewById(R.id.vehicle_recycler_view);
         vehicleRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Sample data
         vehicleList = new ArrayList<>();
-        vehicleList.add(new Vehicle("VW POLO", "Last maintenance: 5000000km ago", "https://www.volkswagen.co.uk/content/dam/vw-ngw/vw_pkw/importers/gb/NewPolo/Highlights/2021/01/01/NewPolo_Highlights_1920x1080.jpg"));
-        vehicleList.add(new Vehicle("Opel Astra opc", "Last maintenance: 0km ago", "https://www.opel.ie/content/dam/Opel/Europe/ireland/nscwebsite/ie/01_Vehicles/01_Passenger_Cars/Astra/2021/01_images/astra-5-door-2021-exterior-01.jpg"));
+//         vehicleList.add(new Vehicle("VW POLO", "Last maintenance: 5000000km ago", "https://www.volkswagen.co.uk/content/dam/vw-ngw/vw_pkw/importers/gb/NewPolo/Highlights/2021/01/01/NewPolo_Highlights_1920x1080.jpg"));
+//         vehicleList.add(new Vehicle("Opel Astra opc", "Last maintenance: 0km ago", "https://www.opel.ie/content/dam/Opel/Europe/ireland/nscwebsite/ie/01_Vehicles/01_Passenger_Cars/Astra/2021/01_images/astra-5-door-2021-exterior-01.jpg"));
 
-        // Set adapter
         vehicleAdapter = new VehicleAdapter(vehicleList);
         vehicleRecyclerView.setAdapter(vehicleAdapter);
 
@@ -72,17 +65,12 @@ public class VehicleMenuFragment extends Fragment {
             }
         });
 
-        // FAB for adding vehicles
         FloatingActionButton fabAddVehicle = view.findViewById(R.id.fab_add_vehicle);
         fabAddVehicle.setOnClickListener(v -> showAddVehicleDialog());
 
         return view;
     }
 
-    /**
-     * Mostra um dialogo de confirmação para remover um veículo.
-     * @param position posição do veículo na lista
-     */
     private void showDeleteConfirmationDialog(int position) {
         new AlertDialog.Builder(getContext())
                 .setTitle("Delete Vehicle")
@@ -96,11 +84,6 @@ public class VehicleMenuFragment extends Fragment {
                 .show();
     }
 
-    /**
-     * Mostra um dialogo para editar um veículo.
-     * @param position posição do veículo na lista
-     * @param vehicle veículo a ser editado
-     */
     private void showEditVehicleDialog(int position, Vehicle vehicle) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Edit Vehicle");
@@ -142,15 +125,13 @@ public class VehicleMenuFragment extends Fragment {
         builder.setPositiveButton("Save", (dialog, which) -> {
             String name = inputName.getText().toString();
             String details = inputDetails.getText().toString();
-            String photoUri = (String) vehiclePhoto.getTag(); // Retrieve the updated photo URI
-
+            String photoUri = (String) vehiclePhoto.getTag();
 
             if (!name.isEmpty() && !details.isEmpty()) {
-                // Update vehicle details
                 vehicle.setName(name);
                 vehicle.setDetails(details);
-                vehicle.setPhotoUri(photoUri); // Save the updated photo URI
-                vehicleAdapter.notifyItemChanged(position); // Notify RecyclerView of changes
+                vehicle.setPhotoUri(photoUri);
+                vehicleAdapter.notifyItemChanged(position);
             } else {
                 Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
             }
@@ -161,55 +142,30 @@ public class VehicleMenuFragment extends Fragment {
         builder.show();
     }
 
-
-    private ImageView selectedImageView; //
-
-    /**
-     * Abre a galeria de fotos para selecionar uma imagem.
-     * @param imageView
-     */
     private void selectPhoto(ImageView imageView) {
-        selectedImageView = imageView; // Track the ImageView being updated
+        selectedImageView = imageView;
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-        startActivityForResult(intent, 101); // Start the photo picker
+        startActivityForResult(intent, 101);
     }
 
-
-    /**
-     * callback para receber o resultado da seleção de uma foto.
-     * @param requestCode o código da solicitação original que foi passado para startActivityForResult()
-     * @param resultCode o código de resultado retornado pelo filho
-     * @param data um Intent que carrega o resultado da atividade
-     *
-     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 101 && resultCode == Activity.RESULT_OK && data != null) {
-            Uri selectedImageUri = data.getData(); // Get the selected photo URI
+            Uri selectedImageUri = data.getData();
             if (selectedImageUri != null && selectedImageView != null) {
-                // Set the selected URI to the ImageView's tag
                 selectedImageView.setTag(selectedImageUri.toString());
-
-                // Load the selected image into the ImageView
-                Glide.with(this)
-                        .load(selectedImageUri)
-                        .into(selectedImageView);
+                Glide.with(this).load(selectedImageUri).into(selectedImageView);
             }
         }
     }
 
-
-    /**
-     * Mostra um dialogo para adicionar um novo veículo.
-     */
     private void showAddVehicleDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Add New Vehicle");
 
-        // Input fields
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
 
@@ -229,14 +185,12 @@ public class VehicleMenuFragment extends Fragment {
 
         builder.setView(layout);
 
-        // Click listener for selecting a photo
         vehiclePhoto.setOnClickListener(v -> selectPhoto(vehiclePhoto));
 
-        // Add buttons
         builder.setPositiveButton("Add", (dialog, which) -> {
             String name = inputName.getText().toString();
             String details = inputDetails.getText().toString();
-            String photoUri = (String) vehiclePhoto.getTag(); // Retrieve URI
+            String photoUri = (String) vehiclePhoto.getTag();
 
             if (!name.isEmpty() && !details.isEmpty()) {
                 vehicleList.add(new Vehicle(name, details, photoUri));
@@ -250,5 +204,4 @@ public class VehicleMenuFragment extends Fragment {
 
         builder.show();
     }
-
 }
