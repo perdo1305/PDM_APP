@@ -2,8 +2,15 @@ package ipleiria.eec.pdm.pdm_app.fragments;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +49,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
+    private static final String SHARED_PREFS_NAME = "trip_prefs";
+    private static final String TRIP_LIST_KEY = "trip_list";
+
     private RecyclerView tripRecyclerView;
     private TripAdapter tripAdapter;
     private List<Trip> tripList;
@@ -65,18 +75,18 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         tripRecyclerView = view.findViewById(R.id.trip_recycler_view);
         tripRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        tripList = new ArrayList<>();
-        tripList.add(new Trip("Torres Novas to Leiria", "58 km", "5.75", new LatLng(39.600672, -8.433824), new LatLng(39.743623, -8.807050)));
-        tripList.add(new Trip("Leiria to Facho", "40 km", "7.50", new LatLng(39.743623, -8.807050), new LatLng(39.792678, -9.083916)));
+        // Load trips from SharedPreferences
+        tripList = loadTrips();
+        if (tripList == null) {
+            tripList = new ArrayList<>();
+        }
 
         tripAdapter = new TripAdapter(tripList);
         tripRecyclerView.setAdapter(tripAdapter);
 
-
         // Set click listener for trips
-        tripAdapter.setOnItemClickListener(position -> {
-            Trip selectedTrip = tripList.get(position);
-            updateMarkers(selectedTrip.getStartLocation(), selectedTrip.getEndLocation());
+        tripAdapter.setOnItemClickListener(trip -> {
+            updateMarkers(trip.getStartLocation(), trip.getEndLocation());
         });
 
         // Initialize FloatingActionButton
@@ -105,6 +115,29 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         }
 
         return view;
+    }
+
+    private void saveTrips(List<Trip> trips) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(trips);
+        editor.putString(TRIP_LIST_KEY, json);
+        editor.apply();
+    }
+
+    private List<Trip> loadTrips() {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(TRIP_LIST_KEY, null);
+        Type type = new TypeToken<List<Trip>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        saveTrips(tripList);
     }
 
     @Override
@@ -142,105 +175,102 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-
     private void showAddTripDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle(R.string.add_new_trip);
+    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+    builder.setTitle(R.string.add_new_trip);
 
-        // Input fields
-        LinearLayout layout = new LinearLayout(getContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
+    // Input fields
+    LinearLayout layout = new LinearLayout(getContext());
+    layout.setOrientation(LinearLayout.VERTICAL);
 
-        EditText inputDestination = new EditText(getContext());
-        inputDestination.setHint(R.string.destination);
-        layout.addView(inputDestination);
+    EditText inputDestination = new EditText(getContext());
+    inputDestination.setHint(R.string.destination);
+    layout.addView(inputDestination);
 
-        EditText inputDistance = new EditText(getContext());
-        inputDistance.setHint(R.string.distance);
-        inputDistance.setInputType(InputType.TYPE_CLASS_TEXT);
-        layout.addView(inputDistance);
+    EditText inputDistance = new EditText(getContext());
+    inputDistance.setHint(R.string.distance);
+    inputDistance.setInputType(InputType.TYPE_CLASS_TEXT);
+    layout.addView(inputDistance);
 
-        EditText inputFuelCost = new EditText(getContext());
-        inputFuelCost.setHint(R.string.fuel_cost);
-        inputFuelCost.setInputType(InputType.TYPE_CLASS_TEXT);
-        layout.addView(inputFuelCost);
+    EditText inputFuelCost = new EditText(getContext());
+    inputFuelCost.setHint(R.string.fuel_cost);
+    inputFuelCost.setInputType(InputType.TYPE_CLASS_TEXT);
+    layout.addView(inputFuelCost);
 
-        // Coordinates fields (start and end locations)
-        EditText inputStartLat = new EditText(getContext());
-        inputStartLat.setHint("Start Latitude");
-        inputStartLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        inputStartLat.setEnabled(false); // Make it non-editable
-        layout.addView(inputStartLat);
+    // Coordinates fields (start and end locations)
+    inputStartLat = new EditText(getContext());
+    inputStartLat.setHint("Start Latitude");
+    inputStartLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+    inputStartLat.setEnabled(false); // Make it non-editable
+    layout.addView(inputStartLat);
 
-        EditText inputStartLng = new EditText(getContext());
-        inputStartLng.setHint("Start Longitude");
-        inputStartLng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        inputStartLng.setEnabled(false); // Make it non-editable
-        layout.addView(inputStartLng);
+    inputStartLng = new EditText(getContext());
+    inputStartLng.setHint("Start Longitude");
+    inputStartLng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+    inputStartLng.setEnabled(false); // Make it non-editable
+    layout.addView(inputStartLng);
 
-        EditText inputEndLat = new EditText(getContext());
-        inputEndLat.setHint("End Latitude");
-        inputEndLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        inputEndLat.setEnabled(false); // Make it non-editable
-        layout.addView(inputEndLat);
+    inputEndLat = new EditText(getContext());
+    inputEndLat.setHint("End Latitude");
+    inputEndLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+    inputEndLat.setEnabled(false); // Make it non-editable
+    layout.addView(inputEndLat);
 
-        EditText inputEndLng = new EditText(getContext());
-        inputEndLng.setHint("End Longitude");
-        inputEndLng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        inputEndLng.setEnabled(false); // Make it non-editable
-        layout.addView(inputEndLng);
+    inputEndLng = new EditText(getContext());
+    inputEndLng.setHint("End Longitude");
+    inputEndLng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+    inputEndLng.setEnabled(false); // Make it non-editable
+    layout.addView(inputEndLng);
 
-        builder.setView(layout);
+    builder.setView(layout);
 
-        // Buttons for location selection
-        Button btnStartLocation = new Button(getContext());
-        btnStartLocation.setText("Select Start Location");
-        layout.addView(btnStartLocation);
+    // Buttons for location selection
+    Button btnStartLocation = new Button(getContext());
+    btnStartLocation.setText("Select Start Location");
+    layout.addView(btnStartLocation);
 
-        Button btnEndLocation = new Button(getContext());
-        btnEndLocation.setText("Select End Location");
-        layout.addView(btnEndLocation);
+    Button btnEndLocation = new Button(getContext());
+    btnEndLocation.setText("Select End Location");
+    layout.addView(btnEndLocation);
 
-        // Coordinates for the selected locations
-        final LatLng[] startLocation = {null};
-        final LatLng[] endLocation = {null};
+    // Start location selection
+    btnStartLocation.setOnClickListener(v -> {
+        Intent intent = new Intent(getContext(), MapSelectionActivity.class);
+        startActivityForResult(intent, 101); // Request code for start location
+    });
 
-        // Start location selection
-        btnStartLocation.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), MapSelectionActivity.class);
-            startActivityForResult(intent, 101); // Request code for start location
-        });
+    // End location selection
+    btnEndLocation.setOnClickListener(v -> {
+        Intent intent = new Intent(getContext(), MapSelectionActivity.class);
+        startActivityForResult(intent, 102); // Request code for end location
+    });
 
-        // End location selection
-        btnEndLocation.setOnClickListener(v -> {
-            Intent intent = new Intent(getContext(), MapSelectionActivity.class);
-            startActivityForResult(intent, 102); // Request code for end location
-        });
+    builder.setPositiveButton(R.string.add, (dialog, which) -> {
+        String destination = inputDestination.getText().toString();
+        String distance = inputDistance.getText().toString();
+        String fuelCost = inputFuelCost.getText().toString();
 
-        builder.setPositiveButton(R.string.add, (dialog, which) -> {
-            String destination = inputDestination.getText().toString();
-            String distance = inputDistance.getText().toString();
-            String fuelCost = inputFuelCost.getText().toString();
+        if (selectedStartLocation == null || selectedEndLocation == null ||
+                destination.isEmpty() || distance.isEmpty() || fuelCost.isEmpty()) {
+            Toast.makeText(getContext(), "Please fill in all fields and select both start and end locations.", Toast.LENGTH_SHORT).show();
+        } else {
+            // Add the new trip to the original list
+            Trip newTrip = new Trip(destination, distance, fuelCost, selectedStartLocation, selectedEndLocation);
 
-            if (startLocation[0] != null && endLocation[0] != null &&
-                    !destination.isEmpty() && !distance.isEmpty() && !fuelCost.isEmpty()) {
-                tripList.add(new Trip(destination, distance, fuelCost, startLocation[0], endLocation[0]));
-                tripAdapter.notifyItemInserted(tripList.size() - 1);
+            tripList.add(newTrip);
 
-                // Update the map with the new trip
-                updateMarkers(startLocation[0], endLocation[0]);
-            } else {
-                Toast.makeText(getContext(), "Please select both start and end locations.", Toast.LENGTH_SHORT).show();
-            }
-        });
+            // Notify the adapter about the new item
+            tripAdapter.notifyItemInserted(tripList.size() - 1);
 
-        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
+            // Update the map with the new trip
+            updateMarkers(selectedStartLocation, selectedEndLocation);
+        }
+    });
 
-        builder.show();
-    }
+    builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
 
-
-
+    builder.show();
+}
 
     /**
      * Filters trips based on search query.
@@ -253,8 +283,13 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
                 filteredList.add(trip);
             }
         }
-        tripAdapter = new TripAdapter(filteredList);
-        tripRecyclerView.setAdapter(tripAdapter);
+        // Update the adapter with the filtered list
+        tripAdapter.updateList(filteredList);
+    }
+
+    public void updateList(List<Trip> newList) {
+        this.tripList = newList; // Replace the adapter's list
+        tripAdapter.notifyDataSetChanged(); // Notify the adapter
     }
 
     // Handle the results from MapSelectionActivity
@@ -288,11 +323,19 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
      */
     public void updateMarkers(LatLng newStart, LatLng newEnd) {
         if (startMarker != null) startMarker.setPosition(newStart);
-        if (endMarker != null) endMarker.setPosition(newEnd);
+        else startMarker = mMap.addMarker(new MarkerOptions().position(newStart).title("Start Location"));
 
-        // Update route line
+        if (endMarker != null) endMarker.setPosition(newEnd);
+        else endMarker = mMap.addMarker(new MarkerOptions().position(newEnd).title("End Location"));
+
+        // Create or update route line
         if (routePolyline != null) {
             routePolyline.setPoints(List.of(newStart, newEnd));
+        } else {
+            routePolyline = mMap.addPolyline(new PolylineOptions()
+                    .add(newStart, newEnd)
+                    .width(5)
+                    .color(Color.RED));
         }
 
         // Adjust camera

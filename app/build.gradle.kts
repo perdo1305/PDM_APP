@@ -33,6 +33,7 @@ android {
 }
 
 dependencies {
+    implementation ("com.google.code.gson:gson:2.8.9")
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation(libs.appcompat)
     implementation(libs.material)

@@ -37,4 +37,20 @@ public class Trip {
     public LatLng getEndLocation() {
         return endLocation;
     }
+
+    public double getStartLatitude() {
+        return startLocation.latitude;
+    }
+
+    public double getStartLongitude() {
+        return startLocation.longitude;
+    }
+
+    public double getEndLatitude() {
+        return endLocation.latitude;
+    }
+
+    public double getEndLongitude() {
+        return endLocation.longitude;
+    }
 }
