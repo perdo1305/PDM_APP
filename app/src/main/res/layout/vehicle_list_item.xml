@@ -33,5 +33,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/last_maintenance_1000km_ago" />
+
+        <TextView
+            android:id="@+id/vehicle_license_plate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/license_plate"
+            android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

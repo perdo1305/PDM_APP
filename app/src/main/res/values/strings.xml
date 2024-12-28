@@ -41,5 +41,6 @@
 
     <string name="possible_interactions_tap_select_long_press_delete_swipe_return">Possible interactions:\n- Tap: select\n- Long Press: delete\n- Swipe: return</string>
     <string name="trip">Trip</string>
+    <string name="license_plate">License Plate</string>
 
 </resources>

@@ -102,6 +102,11 @@ public class VehicleMenuFragment extends Fragment {
         inputDetails.setText(vehicle.getDetails());
         layout.addView(inputDetails);
 
+        EditText inputLicensePlate = new EditText(getContext());
+        inputLicensePlate.setHint("License Plate");
+        inputLicensePlate.setText(vehicle.getLicensePlate());
+        layout.addView(inputLicensePlate);
+
         FrameLayout photoContainer = new FrameLayout(getContext());
         ImageView vehiclePhoto = new ImageView(getContext());
         vehiclePhoto.setLayoutParams(new FrameLayout.LayoutParams(200, 200));
@@ -126,11 +131,13 @@ public class VehicleMenuFragment extends Fragment {
         builder.setPositiveButton("Save", (dialog, which) -> {
             String name = inputName.getText().toString();
             String details = inputDetails.getText().toString();
+            String licensePlate = inputLicensePlate.getText().toString();
             String photoUri = (String) vehiclePhoto.getTag();
 
-            if (!name.isEmpty() && !details.isEmpty()) {
+            if (!name.isEmpty() && !details.isEmpty() && !licensePlate.isEmpty()) {
                 vehicle.setName(name);
                 vehicle.setDetails(details);
+                vehicle.setLicensePlate(licensePlate);
                 vehicle.setPhotoUri(photoUri);
                 dbHelper.addVehicle(vehicle);
                 vehicleAdapter.notifyItemChanged(position);
@@ -179,6 +186,10 @@ public class VehicleMenuFragment extends Fragment {
         inputDetails.setHint("Vehicle Details");
         layout.addView(inputDetails);
 
+        EditText inputLicensePlate = new EditText(getContext());
+        inputLicensePlate.setHint("License Plate");
+        layout.addView(inputLicensePlate);
+
         ImageView vehiclePhoto = new ImageView(getContext());
         vehiclePhoto.setImageResource(R.drawable.ic_vehicle_placeholder);
         vehiclePhoto.setLayoutParams(new LinearLayout.LayoutParams(200, 200));
@@ -192,10 +203,11 @@ public class VehicleMenuFragment extends Fragment {
         builder.setPositiveButton("Add", (dialog, which) -> {
             String name = inputName.getText().toString();
             String details = inputDetails.getText().toString();
+            String licensePlate = inputLicensePlate.getText().toString();
             String photoUri = (String) vehiclePhoto.getTag();
 
-            if (!name.isEmpty() && !details.isEmpty()) {
-                Vehicle newVehicle = new Vehicle(name, details, photoUri);
+            if (!name.isEmpty() && !details.isEmpty() && !licensePlate.isEmpty()) {
+                Vehicle newVehicle = new Vehicle(name, details, photoUri, licensePlate);
                 dbHelper.addVehicle(newVehicle);
                 vehicleList.add(newVehicle);
                 vehicleAdapter.notifyItemInserted(vehicleList.size() - 1);

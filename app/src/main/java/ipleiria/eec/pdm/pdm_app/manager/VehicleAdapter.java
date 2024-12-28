@@ -44,14 +44,8 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
         Vehicle vehicle = vehicleList.get(position);
         holder.vehicleName.setText(vehicle.getName());
         holder.vehicleDetails.setText(vehicle.getDetails());
-
-        if (vehicle.getPhotoUri() != null && !vehicle.getPhotoUri().isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(vehicle.getPhotoUri())
-                    .into(holder.vehiclePhoto);
-        } else {
-            holder.vehiclePhoto.setImageResource(R.drawable.ic_vehicle_placeholder);
-        }
+        holder.vehicleLicensePlate.setText(vehicle.getLicensePlate());
+        Glide.with(holder.itemView.getContext()).load(vehicle.getPhotoUri()).into(holder.vehiclePhoto);
 
         holder.itemView.setOnClickListener(v -> {
             if (onVehicleClickListener != null) {
@@ -73,13 +67,14 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
     }
 
     public static class VehicleViewHolder extends RecyclerView.ViewHolder {
-        TextView vehicleName, vehicleDetails;
+        TextView vehicleName, vehicleDetails, vehicleLicensePlate;
         ImageView vehiclePhoto;
 
         public VehicleViewHolder(@NonNull View itemView) {
             super(itemView);
             vehicleName = itemView.findViewById(R.id.vehicle_name);
             vehicleDetails = itemView.findViewById(R.id.vehicle_details);
+            vehicleLicensePlate = itemView.findViewById(R.id.vehicle_license_plate);
             vehiclePhoto = itemView.findViewById(R.id.vehicle_photo);
         }
     }
