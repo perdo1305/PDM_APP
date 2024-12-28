@@ -19,4 +19,5 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_add"
         android:contentDescription="@string/add_vehicle" />
+
 </RelativeLayout>
