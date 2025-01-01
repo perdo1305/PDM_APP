@@ -1,40 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Line Chart -->
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/live_data_chart"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Current Value Display -->
+    <!-- Bluetooth Status Text -->
     <TextView
-        android:id="@+id/current_value_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/current_value_n_a"
-        android:textSize="18sp"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Input for Adding Data -->
-    <EditText
-        android:id="@+id/input_value"
+        android:id="@+id/statusBluetoothTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_a_value" />
+        android:text="Bluetooth Status"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:padding="8dp" />
 
-    <!-- Button to Add Data -->
-    <Button
-        android:id="@+id/add_value_button"
+    <!-- Control Buttons -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_value" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnTurnOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Turn On" />
+
+        <Button
+            android:id="@+id/btnTurnOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Turn Off" />
+
+        <Button
+            android:id="@+id/btnDiscover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Discover Devices" />
+    </LinearLayout>
+
+    <!-- Paired Devices Header -->
+    <TextView
+        android:id="@+id/pairedTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Paired Devices"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:visibility="gone"
+        android:paddingVertical="8dp" />
+
+    <!-- ListView for New Devices -->
+    <ListView
+        android:id="@+id/listViewDevices"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="8dp" />
 </LinearLayout>

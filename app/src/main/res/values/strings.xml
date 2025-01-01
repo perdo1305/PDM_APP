@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">PDM APP</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve"
-        translatable="false">AIzaSyAt5ic-4_EbBWH9sZbylI1x-XZzAgApKcY</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAt5ic-4_EbBWH9sZbylI1x-XZzAgApKcY</string>
 
     <string name="settings_selected">Settings selected</string>
     <string name="help_selected">Help selected</string>
@@ -23,7 +22,6 @@
     <string name="about">ⓘ About</string>
 
 
-
     <string name="vehicle_name">Vehicle Name</string>
     <string name="last_maintenance_1000km_ago">Last maintenance: 1000km ago</string>
     <string name="destination_xyz">Destination: XYZ</string>
@@ -41,5 +39,7 @@
 
     <string name="possible_interactions_tap_select_long_press_delete_swipe_return">Possible interactions:\n- Tap: select\n- Long Press: delete\n- Swipe: return</string>
     <string name="trip">Trip</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
