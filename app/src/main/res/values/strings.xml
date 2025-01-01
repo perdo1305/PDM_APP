@@ -39,7 +39,7 @@
 
     <string name="possible_interactions_tap_select_long_press_delete_swipe_return">Possible interactions:\n- Tap: select\n- Long Press: delete\n- Swipe: return</string>
     <string name="trip">Trip</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="license_plate">License Plate</string>
+    <string name="select_vehicle">Select Vehicle</string>
 
 </resources>

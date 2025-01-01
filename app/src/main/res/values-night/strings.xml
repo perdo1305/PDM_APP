@@ -15,4 +15,6 @@
     <string name="add">Add</string>
     <string name="all_fields_are_required">All fields are required!</string>
     <string name="cancel">Cancel</string>
+    <string name="license_plate">License Plate</string>
+    <string name="select_vehicle">Select Vehicle</string>
 </resources>
