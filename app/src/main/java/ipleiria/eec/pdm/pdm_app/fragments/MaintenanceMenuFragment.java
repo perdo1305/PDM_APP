@@ -1,5 +1,6 @@
 package ipleiria.eec.pdm.pdm_app.fragments;
 
+import android.text.Html;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -104,7 +105,7 @@ public class MaintenanceMenuFragment extends Fragment {
 
         builder.setItems(vehicleNames, (dialog, which) -> {
             Vehicle selectedVehicle = vehicleList.get(which);
-            tvSelectedVehicle.setText("Selected Vehicle: " + selectedVehicle.getName());
+            tvSelectedVehicle.setText(Html.fromHtml("Selected Vehicle: <i><big>" + selectedVehicle.getName() + "</big></i>"));
             selectedVehicleId = selectedVehicle.getVehicleId();
             loadMaintenanceRecords(selectedVehicleId);
             FloatingActionButton fabAddMaintenance = getView().findViewById(R.id.fab_add_maintenance);
@@ -128,11 +129,11 @@ public class MaintenanceMenuFragment extends Fragment {
         layout.addView(inputServiceType);
 
         EditText inputServiceDate = new EditText(getContext());
-        inputServiceDate.setHint("Service Date (YYYY-MM-DD)");
+        inputServiceDate.setHint("Service Date (dd - mm - yyyy)");
         layout.addView(inputServiceDate);
 
         EditText inputServiceCost = new EditText(getContext());
-        inputServiceCost.setHint("Service Cost ($)");
+        inputServiceCost.setHint("Service Cost €");
         layout.addView(inputServiceCost);
 
         builder.setView(layout);
@@ -172,12 +173,12 @@ public class MaintenanceMenuFragment extends Fragment {
         layout.addView(inputServiceType);
 
         EditText inputServiceDate = new EditText(getContext());
-        inputServiceDate.setHint("Service Date (YYYY-MM-DD)");
+        inputServiceDate.setHint("Service Date (dd - mm - yyyy)");
         inputServiceDate.setText(maintenance.getServiceDate());
         layout.addView(inputServiceDate);
 
         EditText inputServiceCost = new EditText(getContext());
-        inputServiceCost.setHint("Service Cost ($)");
+        inputServiceCost.setHint("Service Cost €");
         inputServiceCost.setText(maintenance.getServiceCost());
         layout.addView(inputServiceCost);
 

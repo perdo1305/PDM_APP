@@ -93,17 +93,17 @@ public class VehicleMenuFragment extends Fragment {
         layout.setOrientation(LinearLayout.VERTICAL);
 
         EditText inputName = new EditText(getContext());
-        inputName.setHint("Vehicle Name");
+        inputName.setHint("Vehicle Model");
         inputName.setText(vehicle.getName());
         layout.addView(inputName);
 
         EditText inputDetails = new EditText(getContext());
-        inputDetails.setHint("Vehicle Details");
+        inputDetails.setHint("Vehicle Details (year - cv)");
         inputDetails.setText(vehicle.getDetails());
         layout.addView(inputDetails);
 
         EditText inputLicensePlate = new EditText(getContext());
-        inputLicensePlate.setHint("License Plate");
+        inputLicensePlate.setHint("License Plate (XX-XX-XX)");
         inputLicensePlate.setText(vehicle.getLicensePlate());
         layout.addView(inputLicensePlate);
 
@@ -118,12 +118,14 @@ public class VehicleMenuFragment extends Fragment {
             vehiclePhoto.setImageResource(R.drawable.ic_vehicle_placeholder);
         }
 
-        Button editPhotoButton = new Button(getContext());
-        editPhotoButton.setText("Edit Photo");
-        editPhotoButton.setOnClickListener(v -> selectPhoto(vehiclePhoto));
+        //Button editPhotoButton = new Button(getContext());
+        //editPhotoButton.setText("Edit Photo");
+        //editPhotoButton.setOnClickListener(v -> selectPhoto(vehiclePhoto));
+
+        vehiclePhoto.setOnClickListener(v -> selectPhoto(vehiclePhoto));
 
         photoContainer.addView(vehiclePhoto);
-        photoContainer.addView(editPhotoButton);
+        //photoContainer.addView(editPhotoButton);
         layout.addView(photoContainer);
 
         builder.setView(layout);
@@ -180,15 +182,15 @@ public class VehicleMenuFragment extends Fragment {
         layout.setOrientation(LinearLayout.VERTICAL);
 
         EditText inputName = new EditText(getContext());
-        inputName.setHint("Vehicle Name");
+        inputName.setHint("Vehicle Model");
         layout.addView(inputName);
 
         EditText inputDetails = new EditText(getContext());
-        inputDetails.setHint("Vehicle Details");
+        inputDetails.setHint("Vehicle Details (year - cv)");
         layout.addView(inputDetails);
 
         EditText inputLicensePlate = new EditText(getContext());
-        inputLicensePlate.setHint("License Plate");
+        inputLicensePlate.setHint("License Plate (XX-XX-XX)");
         layout.addView(inputLicensePlate);
 
         ImageView vehiclePhoto = new ImageView(getContext());
