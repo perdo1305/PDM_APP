@@ -37,6 +37,7 @@ public class SignUpActivity extends AppCompatActivity {
         emailId = findViewById(R.id.editTextEmail);
         password = findViewById(R.id.editTextPassword);
         password2 = findViewById(R.id.editTextPassword2);
+        getSupportActionBar().hide();
 
         if (firebaseAuth.getCurrentUser() == null)
             Toast.makeText(this, "Please register", Toast.LENGTH_SHORT).show();

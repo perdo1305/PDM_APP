@@ -1,8 +1,10 @@
 package ipleiria.eec.pdm.pdm_app.manager;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +35,16 @@ public class LoginActivity extends AppCompatActivity {
         emailId = findViewById(R.id.editTextEmail);
         password = findViewById(R.id.editTextPassword);
         tvSignUp = findViewById(R.id.textView);
+        getSupportActionBar().hide();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.setStatusBarColor(getResources().getColor(R.color.status_bar_color));
+        }
+
         if (firebaseAuth.getCurrentUser() == null)
             Toast.makeText(this, "Please Login", Toast.LENGTH_SHORT).show();
+
 
     }
 
