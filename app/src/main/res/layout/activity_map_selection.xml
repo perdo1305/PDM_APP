@@ -16,5 +16,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="16dp"
-        android:text="Confirm Location" />
+        android:text="@string/confirm_location" />
 </RelativeLayout>

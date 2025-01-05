@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper class for managing the vehicle database.
+ * Classe Helper para gerenciar o banco de dados de veículos.
  */
 public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "vehicles.db";
@@ -36,9 +36,9 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_SERVICE_COST = "service_cost";
 
     /**
-     * Constructs a new VehicleDatabaseHelper.
+     * Construtor da classe VehicleDatabaseHelper.
      *
-     * @param context the context
+     * @param context o contexto
      */
     public VehicleDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -72,9 +72,9 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Adds a new vehicle to the database.
+     * Adiciona um novo veículo ao banco de dados.
      *
-     * @param vehicle the vehicle to add
+     * @param vehicle o veículo a ser adicionado
      */
     public void addVehicle(Vehicle vehicle) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -89,9 +89,9 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Returns a list of all vehicles in the database.
+     * Retorna uma lista com todos os veículos no banco de dados.
      *
-     * @return the list of vehicles
+     * @return a lista de veículos
      */
     public List<Vehicle> getAllVehicles() {
         List<Vehicle> vehicleList = new ArrayList<>();
@@ -119,9 +119,9 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Deletes a vehicle from the database by name.
+     * Exclui um veículo do banco de dados pelo nome.
      *
-     * @param name the name of the vehicle to delete
+     * @param name o nome do veículo a ser excluído
      */
     public void deleteVehicle(int vehicleId) {
         SQLiteDatabase db = this.getWritableDatabase();

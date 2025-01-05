@@ -13,16 +13,16 @@ import java.util.List;
 import ipleiria.eec.pdm.pdm_app.R;
 
 /**
- * Adapter class for displaying a list of maintenance records in a RecyclerView.
+ * Classe Adapter para exibir uma lista de registos de manutenção em um RecyclerView.
  */
 public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.MaintenanceViewHolder> {
     private List<Maintenance> maintenanceList;
     private OnMaintenanceClickListener onMaintenanceClickListener;
 
     /**
-     * Constructs a new MaintenanceAdapter with the specified list of maintenance records.
+     * Constrói um novo MaintenanceAdapter com a lista especificada de registos de manutenção.
      *
-     * @param maintenanceList the list of maintenance records to display
+     * @param maintenanceList a lista de registos de manutenção a ser exibida
      */
     public MaintenanceAdapter(List<Maintenance> maintenanceList) {
         this.maintenanceList = maintenanceList;
@@ -39,8 +39,8 @@ public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.
     public void onBindViewHolder(@NonNull MaintenanceViewHolder holder, int position) {
         Maintenance maintenance = maintenanceList.get(position);
         holder.serviceType.setText(maintenance.getServiceType());
-        holder.serviceDate.setText("Date: " + maintenance.getServiceDate());
-        holder.serviceCost.setText("Cost: " + maintenance.getServiceCost());
+        holder.serviceDate.setText("Data: " + maintenance.getServiceDate());
+        holder.serviceCost.setText("Custo: " + maintenance.getServiceCost());
 
         holder.itemView.setOnClickListener(v -> {
             if (onMaintenanceClickListener != null) {
@@ -62,44 +62,44 @@ public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.
     }
 
     /**
-     * Sets the listener for maintenance click events.
+     * Define o listener para eventos de clique nos registos de manutenção.
      *
-     * @param listener the listener to set
+     * @param listener o listener a ser definido
      */
     public void setOnMaintenanceClickListener(OnMaintenanceClickListener listener) {
         this.onMaintenanceClickListener = listener;
     }
 
     /**
-     * Interface for handling maintenance click events.
+     * Interface para manipular eventos de clique nos registos de manutenção.
      */
     public interface OnMaintenanceClickListener {
         /**
-         * Called when a maintenance record is clicked for editing.
+         * Chamado quando um registo de manutenção é clicado para edição.
          *
-         * @param position the position of the clicked maintenance record
-         * @param maintenance the clicked maintenance record
+         * @param position a posição do registo de manutenção clicado
+         * @param maintenance o registo de manutenção clicado
          */
         void onEditMaintenance(int position, Maintenance maintenance);
 
         /**
-         * Called when a maintenance record is long-clicked for deletion.
+         * Chamado quando um registo de manutenção é clicado longamente para exclusão.
          *
-         * @param position the position of the long-clicked maintenance record
+         * @param position a posição do registo de manutenção clicado longamente
          */
         void onDeleteMaintenance(int position);
     }
 
     /**
-     * ViewHolder class for maintenance items.
+     * Classe ViewHolder para itens de manutenção.
      */
     static class MaintenanceViewHolder extends RecyclerView.ViewHolder {
         TextView serviceType, serviceDate, serviceCost;
 
         /**
-         * Constructs a new MaintenanceViewHolder.
+         * Constrói um novo MaintenanceViewHolder.
          *
-         * @param itemView the view of the maintenance item
+         * @param itemView a view do item de manutenção
          */
         public MaintenanceViewHolder(@NonNull View itemView) {
             super(itemView);
