@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Locale;
 
@@ -89,16 +90,20 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Exibe o diálogo de configurações.
      */
-    private void mostrarDialogoConfiguracoes() {
-        String[] opcoes = {"\uD83C\uDF0D Chande Language", "☯\uFE0E Set Dark Mode"};
+    private void showSettingsDialog() {
+        String[] options = {"\uD83C\uDF0D Change Language", "☯\uFE0E Toggle Dark Mode", "🔒 Log Out"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(" Settings")
-                .setItems(opcoes, (dialog, which) -> {
+        builder.setTitle("Settings")
+                .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         mostrarDialogoIdioma();
                     } else if (which == 1) {
-                        boolean modoNoturno = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
-                        AppCompatDelegate.setDefaultNightMode(modoNoturno ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
+                        boolean isNightMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+                        AppCompatDelegate.setDefaultNightMode(isNightMode ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
+                        recreate(); // Recreate the activity to apply the mode change immediately
+                    } else if (which == 2) {
+                        FirebaseAuth.getInstance().signOut();
+                        finish();
                     }
                 });
         builder.create().show();
