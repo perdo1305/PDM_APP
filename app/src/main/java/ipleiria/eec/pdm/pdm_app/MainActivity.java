@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Shows the about dialog.
+     * Shows the about dialog with project information and a link to the GitHub repository.
      */
     private void showAboutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -166,9 +166,15 @@ public class MainActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.dialog_about, null);
         builder.setView(view);
 
-        // Make the link clickable
+        // Set the project information
         TextView aboutText = view.findViewById(R.id.about_text);
+        aboutText.setText("This project is a vehicle management app developed by Bernardo Santos and Pedro Ferreira.\n\nFor more information, visit our GitHub repository:");
         aboutText.setMovementMethod(LinkMovementMethod.getInstance());
+
+        // Set the GitHub link
+        TextView githubLink = view.findViewById(R.id.github_link);
+        githubLink.setText("https://github.com/your-repo");
+        githubLink.setMovementMethod(LinkMovementMethod.getInstance());
 
         builder.setPositiveButton("OK", null);
         builder.create().show();

@@ -9,7 +9,13 @@
         android:id="@+id/about_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="this_project_is_about_a_vehicle_maintenance_trip_tracker_app_n_nauthors_pedro_ferreira_bernardo_santos_n_nhttps_github_com_perdo1305_pdm_app_git"
-        android:autoLink="web"
-        android:linksClickable="true" />
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/github_link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="16sp"
+        android:autoLink="web" />
 </LinearLayout>
