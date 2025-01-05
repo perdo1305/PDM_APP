@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "676415173702",
+    "project_id": "pdm-project-app",
+    "storage_bucket": "pdm-project-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676415173702:android:4a55f5e97d61b6dcc54647",
+        "android_client_info": {
+          "package_name": "ipleiria.eec.pdm.pdm_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCObrfAhuLO4iYvhqF3J6yUKp6B9O61_VI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

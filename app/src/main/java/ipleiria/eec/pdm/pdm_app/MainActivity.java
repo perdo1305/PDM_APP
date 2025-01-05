@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Locale;
 
@@ -89,20 +90,23 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Shows the settings dialog.
      */
-    private void showSettingsDialog() {
-        String[] options = {"\uD83C\uDF0D Change Language", "☯\uFE0E Toggle Dark Mode"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(" Settings")
-                .setItems(options, (dialog, which) -> {
-                    if (which == 0) {
-                        showLanguageDialog();
-                    } else if (which == 1) {
-                        boolean isNightMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
-                        AppCompatDelegate.setDefaultNightMode(isNightMode ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
-                    }
-                });
-        builder.create().show();
-    }
+   private void showSettingsDialog() {
+    String[] options = {"\uD83C\uDF0D Change Language", "☯\uFE0E Toggle Dark Mode", "🔒 Log Out"};
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle("Settings")
+            .setItems(options, (dialog, which) -> {
+                if (which == 0) {
+                    showLanguageDialog();
+                } else if (which == 1) {
+                    boolean isNightMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+                    AppCompatDelegate.setDefaultNightMode(isNightMode ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
+                } else if (which == 2) {
+                    FirebaseAuth.getInstance().signOut();
+                    finish();
+                }
+            });
+    builder.create().show();
+}
 
     /**
      * Shows the language selection dialog.
