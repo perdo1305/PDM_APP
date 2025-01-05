@@ -8,6 +8,7 @@ public class Vehicle {
     private String details;
     private String photoUri;
     private String licensePlate;
+    private int vehicleId; // Optional: Use for database primary key
 
     /**
      * Constructs a new Vehicle with the specified details.
@@ -22,6 +23,7 @@ public class Vehicle {
         this.details = details;
         this.photoUri = photoUri;
         this.licensePlate = licensePlate;
+        this.vehicleId  = vehicleId;
     }
 
     /**

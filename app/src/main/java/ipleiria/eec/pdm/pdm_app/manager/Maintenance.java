@@ -4,6 +4,8 @@ package ipleiria.eec.pdm.pdm_app.manager;
  * Represents a maintenance record for a vehicle.
  */
 public class Maintenance {
+    private int maintenanceId; // Primary key for database
+    private int vehicleId;     // Foreign key linking to Vehicle
     private String serviceType;
     private String serviceDate;
     private String serviceCost;
@@ -15,7 +17,8 @@ public class Maintenance {
      * @param serviceDate the date of the service
      * @param serviceCost the cost of the service
      */
-    public Maintenance(String serviceType, String serviceDate, String serviceCost) {
+    public Maintenance(int vehicleId, String serviceType, String serviceDate, String serviceCost) {
+        this.vehicleId = vehicleId;
         this.serviceType = serviceType;
         this.serviceDate = serviceDate;
         this.serviceCost = serviceCost;
@@ -74,4 +77,8 @@ public class Maintenance {
     public void setServiceCost(String serviceCost) {
         this.serviceCost = serviceCost;
     }
+    public int getMaintenanceId() { return maintenanceId; }
+    public void setMaintenanceId(int maintenanceId) { this.maintenanceId = maintenanceId; }
+    public int getVehicleId() { return vehicleId; }
+    public void setVehicleId(int vehicleId) { this.vehicleId = vehicleId; }
 }

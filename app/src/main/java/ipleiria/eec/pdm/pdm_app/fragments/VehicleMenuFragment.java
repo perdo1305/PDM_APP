@@ -84,11 +84,11 @@ public class VehicleMenuFragment extends Fragment {
                 .setTitle("Delete Vehicle")
                 .setMessage("Are you sure you want to delete this vehicle?")
                 .setPositiveButton("Yes", (dialog, which) -> {
-                    dbHelper.deleteVehicle(vehicleList.get(position).getName());
-                    vehicleList.remove(position);
-                    vehicleAdapter.notifyItemRemoved(position);
-                    Toast.makeText(getContext(), "Vehicle deleted", Toast.LENGTH_SHORT).show();
-                })
+    dbHelper.deleteVehicle(Integer.parseInt(String.valueOf(vehicleList.get(position).getVehicleId())));
+    vehicleList.remove(position);
+    vehicleAdapter.notifyItemRemoved(position);
+    Toast.makeText(getContext(), "Vehicle deleted", Toast.LENGTH_SHORT).show();
+})
                 .setNegativeButton("No", null)
                 .show();
     }
@@ -107,17 +107,17 @@ public class VehicleMenuFragment extends Fragment {
         layout.setOrientation(LinearLayout.VERTICAL);
 
         EditText inputName = new EditText(getContext());
-        inputName.setHint("Vehicle Name");
+        inputName.setHint("Vehicle Model");
         inputName.setText(vehicle.getName());
         layout.addView(inputName);
 
         EditText inputDetails = new EditText(getContext());
-        inputDetails.setHint("Vehicle Details");
+        inputDetails.setHint("Vehicle Details (year - cv)");
         inputDetails.setText(vehicle.getDetails());
         layout.addView(inputDetails);
 
         EditText inputLicensePlate = new EditText(getContext());
-        inputLicensePlate.setHint("License Plate");
+        inputLicensePlate.setHint("License Plate (XX-XX-XX)");
         inputLicensePlate.setText(vehicle.getLicensePlate());
         layout.addView(inputLicensePlate);
 
@@ -132,12 +132,14 @@ public class VehicleMenuFragment extends Fragment {
             vehiclePhoto.setImageResource(R.drawable.ic_vehicle_placeholder);
         }
 
-        Button editPhotoButton = new Button(getContext());
-        editPhotoButton.setText("Edit Photo");
-        editPhotoButton.setOnClickListener(v -> selectPhoto(vehiclePhoto));
+        //Button editPhotoButton = new Button(getContext());
+        //editPhotoButton.setText("Edit Photo");
+        //editPhotoButton.setOnClickListener(v -> selectPhoto(vehiclePhoto));
+
+        vehiclePhoto.setOnClickListener(v -> selectPhoto(vehiclePhoto));
 
         photoContainer.addView(vehiclePhoto);
-        photoContainer.addView(editPhotoButton);
+        //photoContainer.addView(editPhotoButton);
         layout.addView(photoContainer);
 
         builder.setView(layout);
@@ -153,7 +155,8 @@ public class VehicleMenuFragment extends Fragment {
                 vehicle.setDetails(details);
                 vehicle.setLicensePlate(licensePlate);
                 vehicle.setPhotoUri(photoUri);
-                dbHelper.addVehicle(vehicle);
+                vehicle.setVehicleId(vehicle.getVehicleId());
+                dbHelper.updateVehicle(vehicle);
                 vehicleAdapter.notifyItemChanged(position);
             } else {
                 Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
@@ -201,15 +204,15 @@ public class VehicleMenuFragment extends Fragment {
         layout.setOrientation(LinearLayout.VERTICAL);
 
         EditText inputName = new EditText(getContext());
-        inputName.setHint("Vehicle Name");
+        inputName.setHint("Vehicle Model");
         layout.addView(inputName);
 
         EditText inputDetails = new EditText(getContext());
-        inputDetails.setHint("Vehicle Details");
+        inputDetails.setHint("Vehicle Details (year - cv)");
         layout.addView(inputDetails);
 
         EditText inputLicensePlate = new EditText(getContext());
-        inputLicensePlate.setHint("License Plate");
+        inputLicensePlate.setHint("License Plate (XX-XX-XX)");
         layout.addView(inputLicensePlate);
 
         ImageView vehiclePhoto = new ImageView(getContext());
@@ -229,7 +232,7 @@ public class VehicleMenuFragment extends Fragment {
             String photoUri = (String) vehiclePhoto.getTag();
 
             if (!name.isEmpty() && !details.isEmpty() && !licensePlate.isEmpty()) {
-                Vehicle newVehicle = new Vehicle(name, details, photoUri, licensePlate);
+                Vehicle newVehicle = new Vehicle(0, name, details, photoUri, licensePlate);
                 dbHelper.addVehicle(newVehicle);
                 vehicleList.add(newVehicle);
                 vehicleAdapter.notifyItemInserted(vehicleList.size() - 1);
