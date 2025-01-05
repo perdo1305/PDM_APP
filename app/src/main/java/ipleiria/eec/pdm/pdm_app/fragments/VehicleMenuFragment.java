@@ -81,13 +81,13 @@ public class VehicleMenuFragment extends Fragment {
      */
     private void showDeleteConfirmationDialog(int position) {
         new AlertDialog.Builder(getContext())
-                .setTitle(R.string.delete_vehicle)
-                .setMessage(R.string.are_you_sure_you_want_to_delete_this_vehicle)
-                .setPositiveButton(R.string.yes, (dialog, which) -> {
-                    dbHelper.deleteVehicle(vehicleList.get(position).getName());
+                .setTitle("Delete Vehicle")
+                .setMessage("Are you sure you want to delete this vehicle?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    dbHelper.deleteVehicle(Integer.parseInt(String.valueOf(vehicleList.get(position).getVehicleId())));
                     vehicleList.remove(position);
                     vehicleAdapter.notifyItemRemoved(position);
-                    Toast.makeText(getContext(), R.string.vehicle_deleted, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Vehicle deleted", Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton("No", null)
                 .show();
