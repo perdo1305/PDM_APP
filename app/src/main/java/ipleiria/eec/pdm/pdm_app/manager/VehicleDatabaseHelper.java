@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Helper class for managing the vehicle database.
+ */
 public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "vehicles.db";
     private static final int DATABASE_VERSION = 2;
@@ -20,6 +23,11 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_PHOTO_URI = "photo_uri";
     private static final String COLUMN_LICENSE_PLATE = "license_plate";
 
+    /**
+     * Constructs a new VehicleDatabaseHelper.
+     *
+     * @param context the context
+     */
     public VehicleDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -42,6 +50,11 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Adds a new vehicle to the database.
+     *
+     * @param vehicle the vehicle to add
+     */
     public void addVehicle(Vehicle vehicle) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -53,6 +66,11 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Returns a list of all vehicles in the database.
+     *
+     * @return the list of vehicles
+     */
     public List<Vehicle> getAllVehicles() {
         List<Vehicle> vehicleList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -73,6 +91,11 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
         return vehicleList;
     }
 
+    /**
+     * Deletes a vehicle from the database by name.
+     *
+     * @param name the name of the vehicle to delete
+     */
     public void deleteVehicle(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_VEHICLES, COLUMN_NAME + " = ?", new String[]{name});

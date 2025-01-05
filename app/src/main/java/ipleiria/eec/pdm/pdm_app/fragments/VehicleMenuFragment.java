@@ -32,6 +32,9 @@ import ipleiria.eec.pdm.pdm_app.manager.Vehicle;
 import ipleiria.eec.pdm.pdm_app.manager.VehicleAdapter;
 import ipleiria.eec.pdm.pdm_app.manager.VehicleDatabaseHelper;
 
+/**
+ * Fragment for displaying and managing the list of vehicles.
+ */
 public class VehicleMenuFragment extends Fragment {
     private RecyclerView vehicleRecyclerView;
     private VehicleAdapter vehicleAdapter;
@@ -71,6 +74,11 @@ public class VehicleMenuFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Shows a confirmation dialog to delete a vehicle.
+     *
+     * @param position the position of the vehicle to delete
+     */
     private void showDeleteConfirmationDialog(int position) {
         new AlertDialog.Builder(getContext())
                 .setTitle("Delete Vehicle")
@@ -85,6 +93,12 @@ public class VehicleMenuFragment extends Fragment {
                 .show();
     }
 
+    /**
+     * Shows a dialog to edit a vehicle.
+     *
+     * @param position the position of the vehicle to edit
+     * @param vehicle the vehicle to edit
+     */
     private void showEditVehicleDialog(int position, Vehicle vehicle) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Edit Vehicle");
@@ -151,6 +165,11 @@ public class VehicleMenuFragment extends Fragment {
         builder.show();
     }
 
+    /**
+     * Opens the photo picker to select a photo for the vehicle.
+     *
+     * @param imageView the ImageView to display the selected photo
+     */
     private void selectPhoto(ImageView imageView) {
         selectedImageView = imageView;
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -171,6 +190,9 @@ public class VehicleMenuFragment extends Fragment {
         }
     }
 
+    /**
+     * Shows a dialog to add a new vehicle.
+     */
     private void showAddVehicleDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Add New Vehicle");

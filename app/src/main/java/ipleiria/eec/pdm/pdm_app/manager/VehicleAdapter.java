@@ -15,20 +15,48 @@ import java.util.List;
 
 import ipleiria.eec.pdm.pdm_app.R;
 
+/**
+ * Adapter class for displaying a list of vehicles in a RecyclerView.
+ */
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder> {
     private List<Vehicle> vehicleList;
     private OnVehicleClickListener onVehicleClickListener;
 
+    /**
+     * Constructs a new VehicleAdapter with the specified list of vehicles.
+     *
+     * @param vehicleList the list of vehicles to display
+     */
     public VehicleAdapter(List<Vehicle> vehicleList) {
         this.vehicleList = vehicleList;
     }
 
+    /**
+     * Sets the listener for vehicle click events.
+     *
+     * @param listener the listener to set
+     */
     public void setOnVehicleClickListener(OnVehicleClickListener listener) {
         this.onVehicleClickListener = listener;
     }
 
+    /**
+     * Interface for handling vehicle click events.
+     */
     public interface OnVehicleClickListener {
+        /**
+         * Called when a vehicle is clicked for editing.
+         *
+         * @param position the position of the clicked vehicle
+         * @param vehicle the clicked vehicle
+         */
         void onEditVehicle(int position, Vehicle vehicle);
+
+        /**
+         * Called when a vehicle is long-clicked for deletion.
+         *
+         * @param position the position of the long-clicked vehicle
+         */
         void onDeleteVehicle(int position);
     }
 
@@ -66,10 +94,18 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
         return vehicleList.size();
     }
 
+    /**
+     * ViewHolder class for vehicle items.
+     */
     public static class VehicleViewHolder extends RecyclerView.ViewHolder {
         TextView vehicleName, vehicleDetails, vehicleLicensePlate;
         ImageView vehiclePhoto;
 
+        /**
+         * Constructs a new VehicleViewHolder.
+         *
+         * @param itemView the view of the vehicle item
+         */
         public VehicleViewHolder(@NonNull View itemView) {
             super(itemView);
             vehicleName = itemView.findViewById(R.id.vehicle_name);

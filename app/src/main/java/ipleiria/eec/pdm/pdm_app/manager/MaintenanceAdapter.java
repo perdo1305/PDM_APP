@@ -12,9 +12,18 @@ import java.util.List;
 
 import ipleiria.eec.pdm.pdm_app.R;
 
+/**
+ * Adapter class for displaying a list of maintenance records in a RecyclerView.
+ */
 public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.MaintenanceViewHolder> {
     private List<Maintenance> maintenanceList;
+    private OnMaintenanceClickListener onMaintenanceClickListener;
 
+    /**
+     * Constructs a new MaintenanceAdapter with the specified list of maintenance records.
+     *
+     * @param maintenanceList the list of maintenance records to display
+     */
     public MaintenanceAdapter(List<Maintenance> maintenanceList) {
         this.maintenanceList = maintenanceList;
     }
@@ -33,14 +42,12 @@ public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.
         holder.serviceDate.setText("Date: " + maintenance.getServiceDate());
         holder.serviceCost.setText("Cost: " + maintenance.getServiceCost());
 
-        // Tap to edit maintenance record
         holder.itemView.setOnClickListener(v -> {
             if (onMaintenanceClickListener != null) {
                 onMaintenanceClickListener.onEditMaintenance(position, maintenance);
             }
         });
 
-        // Long press to delete maintenance record
         holder.itemView.setOnLongClickListener(v -> {
             if (onMaintenanceClickListener != null) {
                 onMaintenanceClickListener.onDeleteMaintenance(position);
@@ -49,26 +56,51 @@ public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.
         });
     }
 
-    private OnMaintenanceClickListener onMaintenanceClickListener;
-
-    public void setOnMaintenanceClickListener(OnMaintenanceClickListener listener) {
-        this.onMaintenanceClickListener = listener;
-    }
-
-    public interface OnMaintenanceClickListener {
-        void onEditMaintenance(int position, Maintenance maintenance);
-        void onDeleteMaintenance(int position);
-    }
-
-
     @Override
     public int getItemCount() {
         return maintenanceList.size();
     }
 
+    /**
+     * Sets the listener for maintenance click events.
+     *
+     * @param listener the listener to set
+     */
+    public void setOnMaintenanceClickListener(OnMaintenanceClickListener listener) {
+        this.onMaintenanceClickListener = listener;
+    }
+
+    /**
+     * Interface for handling maintenance click events.
+     */
+    public interface OnMaintenanceClickListener {
+        /**
+         * Called when a maintenance record is clicked for editing.
+         *
+         * @param position the position of the clicked maintenance record
+         * @param maintenance the clicked maintenance record
+         */
+        void onEditMaintenance(int position, Maintenance maintenance);
+
+        /**
+         * Called when a maintenance record is long-clicked for deletion.
+         *
+         * @param position the position of the long-clicked maintenance record
+         */
+        void onDeleteMaintenance(int position);
+    }
+
+    /**
+     * ViewHolder class for maintenance items.
+     */
     static class MaintenanceViewHolder extends RecyclerView.ViewHolder {
         TextView serviceType, serviceDate, serviceCost;
 
+        /**
+         * Constructs a new MaintenanceViewHolder.
+         *
+         * @param itemView the view of the maintenance item
+         */
         public MaintenanceViewHolder(@NonNull View itemView) {
             super(itemView);
             serviceType = itemView.findViewById(R.id.service_type);
