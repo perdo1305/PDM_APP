@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PDM APP</string>
-    <string name="settings_selected">Einstellungen ausgewählt</string>
     <string name="help_selected">Hilfe ausgewählt</string>
     <string name="about_selected">über ausgewählte</string>
     <string name="fuel_cost">Treibstoffkosten</string>
@@ -34,4 +33,5 @@
     <string name="add_value">Mehrwert schaffen</string>
     <string name="possible_interactions_tap_select_long_press_delete_swipe_return">Mögliche Wechselwirkungen</string>
     <string name="trip">Reise</string>
+    <string name="google_maps_key">AIzaSyAt5ic-4_EbBWH9sZbylI1x-XZzAgApKcY</string>
 </resources>

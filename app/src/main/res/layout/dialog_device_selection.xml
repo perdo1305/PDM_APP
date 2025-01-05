@@ -11,7 +11,7 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search devices"
+        android:hint="@string/search_devices"
         android:inputType="text" />
 
     <!-- ListView to display devices -->

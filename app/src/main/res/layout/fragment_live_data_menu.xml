@@ -11,7 +11,7 @@
         android:id="@+id/statusBluetoothTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bluetooth Status"
+        android:text="@string/bluetooth_status"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="Turn On" />
+            android:text="@string/turn_on" />
 
         <Button
             android:id="@+id/btnTurnOff"
@@ -39,14 +39,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:text="Turn Off" />
+            android:text="@string/turn_off" />
 
         <Button
             android:id="@+id/btnDiscover"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Discover Devices" />
+            android:text="@string/discover_devices" />
     </LinearLayout>
 
     <!-- Paired Devices Header -->
@@ -54,7 +54,7 @@
         android:id="@+id/pairedTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Paired Devices"
+        android:text="@string/paired_devices"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@android:color/black"

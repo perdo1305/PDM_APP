@@ -24,7 +24,7 @@ import ipleiria.eec.pdm.pdm_app.fragments.TripMenuFragment;
 import ipleiria.eec.pdm.pdm_app.fragments.VehicleMenuFragment;
 
 /**
- * Main activity of the application.
+ * Atividade principal da aplicação.
  */
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -35,24 +35,24 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
+            Fragment fragmentSelecionado = null;
             if (item.getItemId() == R.id.nav_vehicle) {
-                selectedFragment = new VehicleMenuFragment();
+                fragmentSelecionado = new VehicleMenuFragment();
             } else if (item.getItemId() == R.id.nav_maintenance) {
-                selectedFragment = new MaintenanceMenuFragment();
+                fragmentSelecionado = new MaintenanceMenuFragment();
             } else if (item.getItemId() == R.id.nav_trip) {
-                selectedFragment = new TripMenuFragment();
+                fragmentSelecionado = new TripMenuFragment();
             } else if (item.getItemId() == R.id.nav_live_data) {
-                selectedFragment = new LiveDataMenuFragment();
+                fragmentSelecionado = new LiveDataMenuFragment();
             }
 
-            if (selectedFragment == null) {
+            if (fragmentSelecionado == null) {
                 return false;
             }
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.nav_host_fragment, selectedFragment)
+                    .replace(R.id.nav_host_fragment, fragmentSelecionado)
                     .commit();
 
             return true;
@@ -73,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            showSettingsDialog();
+            mostrarDialogoConfiguracoes();
             return true;
         } else if (id == R.id.action_help) {
-            showHelpDialog();
+            mostrarDialogoAjuda();
             return true;
         } else if (id == R.id.action_about) {
-            showAboutDialog();
+            mostrarDialogoSobre();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -87,43 +87,37 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Shows the settings dialog.
+     * Exibe o diálogo de configurações.
      */
-    private void showSettingsDialog() {
-        String[] options = {"\uD83C\uDF0D Change Language", "☯\uFE0E Toggle Dark Mode"};
+    private void mostrarDialogoConfiguracoes() {
+        String[] opcoes = {"\uD83C\uDF0D Chande Language", "☯\uFE0E Set Dark Mode"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(" Settings")
-                .setItems(options, (dialog, which) -> {
+                .setItems(opcoes, (dialog, which) -> {
                     if (which == 0) {
-                        showLanguageDialog();
+                        mostrarDialogoIdioma();
                     } else if (which == 1) {
-                        boolean isNightMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
-                        AppCompatDelegate.setDefaultNightMode(isNightMode ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
+                        boolean modoNoturno = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+                        AppCompatDelegate.setDefaultNightMode(modoNoturno ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
                     }
                 });
         builder.create().show();
     }
 
     /**
-     * Shows the language selection dialog.
+     * Exibe o diálogo de seleção de idioma.
      */
-    private void showLanguageDialog() {
-        String[] languages = {"\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F English", "\uD83C\uDDF5\uD83C\uDDF9 Portuguese", "\uD83C\uDDE9\uD83C\uDDEA German","\uD83C\uDDE8\uD83C\uDDF3 Chinese(simplied)"};
+    private void mostrarDialogoIdioma() {
+        String[] idiomas = {getString(R.string.ingl_s), getString(R.string.portugu_s)};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("\uD83C\uDF0D Select Language")
-                .setItems(languages, (dialog, which) -> {
+        builder.setTitle(R.string.select_language)
+                .setItems(idiomas, (dialog, which) -> {
                     switch (which) {
                         case 0:
-                            setLocale("en");
+                            setIdioma("en");
                             break;
                         case 1:
-                            setLocale("pt");
-                            break;
-                        case 2:
-                            setLocale("de");
-                            break;
-                        case 3:
-                            setLocale("cn");
+                            setIdioma("pt");
                             break;
                     }
                 });
@@ -131,12 +125,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Sets the locale for the application.
+     * Define o idioma da aplicação.
      *
-     * @param lang the language code
+     * @param idioma o código do idioma
      */
-    private void setLocale(String lang) {
-        Locale locale = new Locale(lang);
+    private void setIdioma(String idioma) {
+        Locale locale = new Locale(idioma);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
@@ -145,36 +139,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Shows the help dialog.
+     * Exibe o diálogo de ajuda.
      */
-    private void showHelpDialog() {
+    private void mostrarDialogoAjuda() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Help")
+        builder.setTitle(R.string.help_)
                 .setMessage(R.string.possible_interactions_tap_select_long_press_delete_swipe_return)
                 .setPositiveButton("OK", null);
         builder.create().show();
     }
 
     /**
-     * Shows the about dialog with project information and a link to the GitHub repository.
+     * Exibe o diálogo "Sobre" com informações do projeto e um link para o repositório GitHub.
      */
-    private void showAboutDialog() {
+    private void mostrarDialogoSobre() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("About");
+        builder.setTitle(R.string.about);
 
-        // Inflate the custom layout
+        // Infla o layout personalizado
         View view = getLayoutInflater().inflate(R.layout.dialog_about, null);
         builder.setView(view);
 
-        // Set the project information
-        TextView aboutText = view.findViewById(R.id.about_text);
-        aboutText.setText("This project is a vehicle management app developed by Bernardo Santos and Pedro Ferreira.\n\nFor more information, visit our GitHub repository:");
-        aboutText.setMovementMethod(LinkMovementMethod.getInstance());
-
-        // Set the GitHub link
-        TextView githubLink = view.findViewById(R.id.github_link);
-        githubLink.setText("https://github.com/your-repo");
-        githubLink.setMovementMethod(LinkMovementMethod.getInstance());
+        // Define as informações do projeto
+        TextView sobreTexto = view.findViewById(R.id.about_text);
+        sobreTexto.setText(R.string.this_project_is_an_application_that_manages_vehicles_developed_by_bernardo_santos_and_pedro_ferreira_for_more_information_visit_our_github_repository);
+        sobreTexto.setMovementMethod(LinkMovementMethod.getInstance());
+        // Define o link para o GitHub
+        TextView linkGitHub = view.findViewById(R.id.github_link);
+        linkGitHub.setText("https://github.com/your-repo");
+        linkGitHub.setMovementMethod(LinkMovementMethod.getInstance());
 
         builder.setPositiveButton("OK", null);
         builder.create().show();

@@ -13,16 +13,16 @@ import java.util.List;
 import ipleiria.eec.pdm.pdm_app.R;
 
 /**
- * Adapter class for displaying a list of trips in a RecyclerView.
+ * Classe Adapter para exibir uma lista de viagens em um RecyclerView.
  */
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder> {
     private List<Trip> tripList;
     private OnItemClickListener listener;
 
     /**
-     * Constructs a new TripAdapter with the specified list of trips.
+     * Constrói um novo TripAdapter com a lista especificada de viagens.
      *
-     * @param tripList the list of trips to display
+     * @param tripList a lista de viagens a ser exibida
      */
     public TripAdapter(List<Trip> tripList) {
         this.tripList = tripList;
@@ -39,12 +39,12 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
         Trip trip = tripList.get(position);
 
-        // Populate the ViewHolder with trip data
+        // Preenche o ViewHolder com os dados da viagem
         holder.destinationTextView.setText(trip.getDestination());
         holder.distanceTextView.setText(trip.getDistance());
         holder.fuelCostTextView.setText(trip.getFuelCost());
 
-        // Set click listener
+        // Define o listener de clique
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(trip);
@@ -58,7 +58,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     }
 
     /**
-     * ViewHolder class for trip items.
+     * Classe ViewHolder para itens de viagem.
      */
     static class TripViewHolder extends RecyclerView.ViewHolder {
         public TextView fuelCostTextView;
@@ -66,9 +66,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
         public TextView destinationTextView;
 
         /**
-         * Constructs a new TripViewHolder.
+         * Constrói um novo TripViewHolder.
          *
-         * @param itemView the view of the trip item
+         * @param itemView a view do item de viagem
          */
         public TripViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,33 +79,33 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     }
 
     /**
-     * Interface for handling trip item click events.
+     * Interface para manipular eventos de clique nos itens de viagem.
      */
     public interface OnItemClickListener {
         /**
-         * Called when a trip item is clicked.
+         * Chamado quando um item de viagem é clicado.
          *
-         * @param trip the clicked trip
+         * @param trip a viagem clicada
          */
         void onItemClick(Trip trip);
     }
 
     /**
-     * Sets the listener for trip item click events.
+     * Define o listener para eventos de clique nos itens de viagem.
      *
-     * @param listener the listener to set
+     * @param listener o listener a ser definido
      */
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
     /**
-     * Updates the list of trips and notifies the adapter.
+     * Atualiza a lista de viagens e notifica o adapter.
      *
-     * @param newList the new list of trips
+     * @param newList a nova lista de viagens
      */
     public void updateList(List<Trip> newList) {
-        this.tripList = newList; // Update the list reference
-        notifyDataSetChanged();  // Notify RecyclerView of changes
+        this.tripList = newList; // Atualiza a referência da lista
+        notifyDataSetChanged();  // Notifica o RecyclerView sobre as mudanças
     }
 }

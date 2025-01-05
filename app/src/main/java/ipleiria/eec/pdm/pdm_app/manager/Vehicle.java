@@ -1,7 +1,7 @@
 package ipleiria.eec.pdm.pdm_app.manager;
 
 /**
- * Represents a vehicle with its details.
+ * Representa um veículo com seus detalhes.
  */
 public class Vehicle {
     private String name;
@@ -10,12 +10,12 @@ public class Vehicle {
     private String licensePlate;
 
     /**
-     * Constructs a new Vehicle with the specified details.
+     * Constrói um novo Vehicle com os detalhes especificados.
      *
-     * @param name the name of the vehicle
-     * @param details the details of the vehicle
-     * @param photoUri the URI of the vehicle's photo
-     * @param licensePlate the license plate of the vehicle
+     * @param name o nome do veículo
+     * @param details os detalhes do veículo
+     * @param photoUri o URI da foto do veículo
+     * @param licensePlate a matrícula do veículo
      */
     public Vehicle(String name, String details, String photoUri, String licensePlate) {
         this.name = name;
@@ -25,72 +25,72 @@ public class Vehicle {
     }
 
     /**
-     * Returns the name of the vehicle.
+     * Retorna o nome do veículo.
      *
-     * @return the name of the vehicle
+     * @return o nome do veículo
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Sets the name of the vehicle.
+     * Define o nome do veículo.
      *
-     * @param name the new name of the vehicle
+     * @param name o novo nome do veículo
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Returns the details of the vehicle.
+     * Retorna os detalhes do veículo.
      *
-     * @return the details of the vehicle
+     * @return os detalhes do veículo
      */
     public String getDetails() {
         return details;
     }
 
     /**
-     * Sets the details of the vehicle.
+     * Define os detalhes do veículo.
      *
-     * @param details the new details of the vehicle
+     * @param details os novos detalhes do veículo
      */
     public void setDetails(String details) {
         this.details = details;
     }
 
     /**
-     * Returns the URI of the vehicle's photo.
+     * Retorna o URI da foto do veículo.
      *
-     * @return the URI of the vehicle's photo
+     * @return o URI da foto do veículo
      */
     public String getPhotoUri() {
         return photoUri;
     }
 
     /**
-     * Sets the URI of the vehicle's photo.
+     * Define o URI da foto do veículo.
      *
-     * @param photoUri the new URI of the vehicle's photo
+     * @param photoUri o novo URI da foto do veículo
      */
     public void setPhotoUri(String photoUri) {
         this.photoUri = photoUri;
     }
 
     /**
-     * Returns the license plate of the vehicle.
+     * Retorna a matrícula do veículo.
      *
-     * @return the license plate of the vehicle
+     * @return a matrícula do veículo
      */
     public String getLicensePlate() {
         return licensePlate;
     }
 
     /**
-     * Sets the license plate of the vehicle.
+     * Define a matrícula do veículo.
      *
-     * @param licensePlate the new license plate of the vehicle
+     * @param licensePlate a nova matrícula do veículo
      */
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;

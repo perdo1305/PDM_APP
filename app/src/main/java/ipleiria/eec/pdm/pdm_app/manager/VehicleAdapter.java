@@ -16,46 +16,46 @@ import java.util.List;
 import ipleiria.eec.pdm.pdm_app.R;
 
 /**
- * Adapter class for displaying a list of vehicles in a RecyclerView.
+ * Classe Adapter para exibir uma lista de veículos em um RecyclerView.
  */
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder> {
     private List<Vehicle> vehicleList;
     private OnVehicleClickListener onVehicleClickListener;
 
     /**
-     * Constructs a new VehicleAdapter with the specified list of vehicles.
+     * Constrói um novo VehicleAdapter com a lista especificada de veículos.
      *
-     * @param vehicleList the list of vehicles to display
+     * @param vehicleList a lista de veículos a ser exibida
      */
     public VehicleAdapter(List<Vehicle> vehicleList) {
         this.vehicleList = vehicleList;
     }
 
     /**
-     * Sets the listener for vehicle click events.
+     * Define o listener para eventos de clique nos veículos.
      *
-     * @param listener the listener to set
+     * @param listener o listener a ser definido
      */
     public void setOnVehicleClickListener(OnVehicleClickListener listener) {
         this.onVehicleClickListener = listener;
     }
 
     /**
-     * Interface for handling vehicle click events.
+     * Interface para manipular eventos de clique nos veículos.
      */
     public interface OnVehicleClickListener {
         /**
-         * Called when a vehicle is clicked for editing.
+         * Chamado quando um veículo é clicado para edição.
          *
-         * @param position the position of the clicked vehicle
-         * @param vehicle the clicked vehicle
+         * @param position a posição do veículo clicado
+         * @param vehicle o veículo clicado
          */
         void onEditVehicle(int position, Vehicle vehicle);
 
         /**
-         * Called when a vehicle is long-clicked for deletion.
+         * Chamado quando um veículo é pressionado por longo tempo para exclusão.
          *
-         * @param position the position of the long-clicked vehicle
+         * @param position a posição do veículo pressionado
          */
         void onDeleteVehicle(int position);
     }
@@ -95,16 +95,16 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
     }
 
     /**
-     * ViewHolder class for vehicle items.
+     * Classe ViewHolder para itens de veículo.
      */
     public static class VehicleViewHolder extends RecyclerView.ViewHolder {
         TextView vehicleName, vehicleDetails, vehicleLicensePlate;
         ImageView vehiclePhoto;
 
         /**
-         * Constructs a new VehicleViewHolder.
+         * Constrói um novo VehicleViewHolder.
          *
-         * @param itemView the view of the vehicle item
+         * @param itemView a view do item do veículo
          */
         public VehicleViewHolder(@NonNull View itemView) {
             super(itemView);

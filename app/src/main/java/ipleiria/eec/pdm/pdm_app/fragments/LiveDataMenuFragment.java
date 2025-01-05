@@ -104,9 +104,9 @@ public class LiveDataMenuFragment extends Fragment {
             @Override
             public void onActivityResult(ActivityResult result) {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                    showToast("Bluetooth is on");
+                    showToast(getString(R.string.bluetooth_is_on));
                 } else {
-                    showToast("Could not turn on Bluetooth");
+                    showToast(getString(R.string.could_not_turn_on_bluetooth));
                 }
             }
         });
@@ -114,9 +114,9 @@ public class LiveDataMenuFragment extends Fragment {
 
     private void setupBluetoothStatus() {
         if (mBlueAdapter == null) {
-            mStatusBlueTv.setText("Bluetooth is not available");
+            mStatusBlueTv.setText(R.string.bluetooth_is_not_available);
         } else {
-            mStatusBlueTv.setText("Bluetooth is available");
+            mStatusBlueTv.setText(R.string.bluetooth_is_available);
         }
     }
 
@@ -144,11 +144,11 @@ public class LiveDataMenuFragment extends Fragment {
         mPairedTv.setVisibility(View.GONE);
         lvNewDevices.setVisibility(View.GONE);
         if (!mBlueAdapter.isEnabled()) {
-            showToast("Turning On Bluetooth...");
+            showToast(getString(R.string.turning_on_bluetooth));
             Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             enableBluetooth.launch(intent);
         } else {
-            showToast("Bluetooth is already on");
+            showToast(getString(R.string.bluetooth_is_already_on));
         }
     }
 
@@ -160,9 +160,9 @@ public class LiveDataMenuFragment extends Fragment {
         lvNewDevices.setVisibility(View.GONE);
         if (mBlueAdapter.isEnabled()) {
             mBlueAdapter.disable();
-            showToast("Turning Bluetooth Off");
+            showToast(getString(R.string.turning_bluetooth_off));
         } else {
-            showToast("Bluetooth is already off");
+            showToast(getString(R.string.bluetooth_is_already_off));
         }
     }
     @SuppressLint("MissingPermission")
@@ -183,7 +183,7 @@ public class LiveDataMenuFragment extends Fragment {
         requireContext().registerReceiver(mBroadcastReceiver, discoverDevicesIntent);
         isReceiverRegistered = true;
 
-        showToast("Discovering devices...");
+        showToast(getString(R.string.discovering_devices));
     }
 
     @Override
@@ -217,17 +217,17 @@ public class LiveDataMenuFragment extends Fragment {
             }
 
             if (device.getUuids() == null || device.getUuids().length == 0) {
-                showToast("Device does not provide UUIDs");
+                showToast(getString(R.string.device_does_not_provide_uuids));
                 return;
             }
 
             BluetoothSocket socket = device.createRfcommSocketToServiceRecord(device.getUuids()[0].getUuid());
             socket.connect();
-            showToast("Connected to " + device.getName());
+            showToast(getString(R.string.connected_to) + device.getName());
 
         } catch (Exception e) {
-            Log.e("Bluetooth", "Connection failed", e);
-            showToast("Failed to connect to " + device.getName());
+            Log.e(getString(R.string.bluetooth), getString(R.string.connection_failed), e);
+            showToast(getString(R.string.failed_to_connect_to) + device.getName());
         }
     }
 }

@@ -3,7 +3,7 @@ package ipleiria.eec.pdm.pdm_app.manager;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Represents a trip with destination, distance, fuel cost, and start and end locations.
+ * Representa uma viagem com destino, distância, custo de combustível e localizações de início e fim.
  */
 public class Trip {
     private String destination;
@@ -13,13 +13,13 @@ public class Trip {
     private LatLng endLocation;
 
     /**
-     * Constructs a new Trip with the specified details.
+     * Constrói uma nova viagem com os detalhes especificados.
      *
-     * @param destination the destination of the trip
-     * @param distance the distance of the trip
-     * @param fuelCost the fuel cost of the trip
-     * @param startLocation the start location of the trip
-     * @param endLocation the end location of the trip
+     * @param destination o destino da viagem
+     * @param distance a distância da viagem
+     * @param fuelCost o custo de combustível da viagem
+     * @param startLocation a localização de início da viagem
+     * @param endLocation a localização de fim da viagem
      */
     public Trip(String destination, String distance, String fuelCost, LatLng startLocation, LatLng endLocation) {
         this.destination = destination;
@@ -30,81 +30,81 @@ public class Trip {
     }
 
     /**
-     * Returns the destination of the trip.
+     * Devolve o destino da viagem.
      *
-     * @return the destination of the trip
+     * @return o destino da viagem
      */
     public String getDestination() {
         return destination;
     }
 
     /**
-     * Returns the distance of the trip.
+     * Devolve a distância da viagem.
      *
-     * @return the distance of the trip
+     * @return a distância da viagem
      */
     public String getDistance() {
         return distance;
     }
 
     /**
-     * Returns the fuel cost of the trip.
+     * Devolve o custo de combustível da viagem.
      *
-     * @return the fuel cost of the trip
+     * @return o custo de combustível da viagem
      */
     public String getFuelCost() {
         return fuelCost;
     }
 
     /**
-     * Returns the start location of the trip.
+     * Devolve a localização de início da viagem.
      *
-     * @return the start location of the trip
+     * @return a localização de início da viagem
      */
     public LatLng getStartLocation() {
         return startLocation;
     }
 
     /**
-     * Returns the end location of the trip.
+     * Devolve a localização de fim da viagem.
      *
-     * @return the end location of the trip
+     * @return a localização de fim da viagem
      */
     public LatLng getEndLocation() {
         return endLocation;
     }
 
     /**
-     * Returns the latitude of the start location.
+     * Devolve a latitude da localização de início.
      *
-     * @return the latitude of the start location
+     * @return a latitude da localização de início
      */
     public double getStartLatitude() {
         return startLocation.latitude;
     }
 
     /**
-     * Returns the longitude of the start location.
+     * Devolve a longitude da localização de início.
      *
-     * @return the longitude of the start location
+     * @return a longitude da localização de início
      */
     public double getStartLongitude() {
         return startLocation.longitude;
     }
 
     /**
-     * Returns the latitude of the end location.
+     * Devolve a latitude da localização de fim.
      *
-     * @return the latitude of the end location
+     * @return a latitude da localização de fim
      */
     public double getEndLatitude() {
         return endLocation.latitude;
     }
 
     /**
-     * Returns the longitude of the end location.
+     * Devolve a longitude da localização de fim.
      *
-     * @return the longitude of the end location
+     * @return a longitude da localização de fim
      */
     public double getEndLongitude() {
         return endLocation.longitude;

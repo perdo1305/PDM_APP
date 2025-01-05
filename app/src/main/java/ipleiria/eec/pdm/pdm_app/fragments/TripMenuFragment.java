@@ -152,16 +152,16 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
                 if (startMarker != null) startMarker.remove(); // Remove existing marker
                 startMarker = mMap.addMarker(new MarkerOptions()
                         .position(latLng)
-                        .title("Start Location"));
-                Toast.makeText(getContext(), "Start location selected.", Toast.LENGTH_SHORT).show();
+                        .title(getString(R.string.start_location)));
+                Toast.makeText(getContext(), R.string.start_location_selected, Toast.LENGTH_SHORT).show();
             } else {
                 // Set the end location
                 selectedEndLocation = latLng;
                 if (endMarker != null) endMarker.remove(); // Remove existing marker
                 endMarker = mMap.addMarker(new MarkerOptions()
                         .position(latLng)
-                        .title("End Location"));
-                Toast.makeText(getContext(), "End location selected.", Toast.LENGTH_SHORT).show();
+                        .title(getString(R.string.end_location)));
+                Toast.makeText(getContext(), R.string.end_location_selected, Toast.LENGTH_SHORT).show();
             }
 
             // Adjust the camera to show the selected markers
@@ -199,25 +199,25 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
 
     // Coordinates fields (start and end locations)
     inputStartLat = new EditText(getContext());
-    inputStartLat.setHint("Start Latitude");
+    inputStartLat.setHint(R.string.start_latitude);
     inputStartLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
     inputStartLat.setEnabled(false); // Make it non-editable
     layout.addView(inputStartLat);
 
     inputStartLng = new EditText(getContext());
-    inputStartLng.setHint("Start Longitude");
+    inputStartLng.setHint(R.string.start_longitude);
     inputStartLng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
     inputStartLng.setEnabled(false); // Make it non-editable
     layout.addView(inputStartLng);
 
     inputEndLat = new EditText(getContext());
-    inputEndLat.setHint("End Latitude");
+    inputEndLat.setHint(R.string.end_latitude);
     inputEndLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
     inputEndLat.setEnabled(false); // Make it non-editable
     layout.addView(inputEndLat);
 
     inputEndLng = new EditText(getContext());
-    inputEndLng.setHint("End Longitude");
+    inputEndLng.setHint(R.string.end_longitude);
     inputEndLng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
     inputEndLng.setEnabled(false); // Make it non-editable
     layout.addView(inputEndLng);
@@ -226,11 +226,11 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
 
     // Buttons for location selection
     Button btnStartLocation = new Button(getContext());
-    btnStartLocation.setText("Select Start Location");
+    btnStartLocation.setText(R.string.select_start_location);
     layout.addView(btnStartLocation);
 
     Button btnEndLocation = new Button(getContext());
-    btnEndLocation.setText("Select End Location");
+    btnEndLocation.setText(R.string.select_end_location);
     layout.addView(btnEndLocation);
 
     // Start location selection
@@ -252,7 +252,7 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
 
         if (selectedStartLocation == null || selectedEndLocation == null ||
                 destination.isEmpty() || distance.isEmpty() || fuelCost.isEmpty()) {
-            Toast.makeText(getContext(), "Please fill in all fields and select both start and end locations.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), R.string.please_fill_in_all_fields_and_select_both_start_and_end_locations, Toast.LENGTH_SHORT).show();
         } else {
             // Add the new trip to the original list
             Trip newTrip = new Trip(destination, distance, fuelCost, selectedStartLocation, selectedEndLocation);
@@ -298,20 +298,20 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK && data != null) {
-            double latitude = data.getDoubleExtra("latitude", 0);
-            double longitude = data.getDoubleExtra("longitude", 0);
+            double latitude = data.getDoubleExtra(getString(R.string.latitude), 0);
+            double longitude = data.getDoubleExtra(getString(R.string.longitude), 0);
             LatLng selectedLocation = new LatLng(latitude, longitude);
 
             if (requestCode == 101) { // For Start Location
                 selectedStartLocation = selectedLocation;
                 inputStartLat.setText(String.valueOf(latitude));
                 inputStartLng.setText(String.valueOf(longitude));
-                Toast.makeText(getContext(), "Start location selected!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.start_location_selected, Toast.LENGTH_SHORT).show();
             } else if (requestCode == 102) { // For End Location
                 selectedEndLocation = selectedLocation;
                 inputEndLat.setText(String.valueOf(latitude));
                 inputEndLng.setText(String.valueOf(longitude));
-                Toast.makeText(getContext(), "End location selected!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.end_location_selected, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -323,10 +323,10 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
      */
     public void updateMarkers(LatLng newStart, LatLng newEnd) {
         if (startMarker != null) startMarker.setPosition(newStart);
-        else startMarker = mMap.addMarker(new MarkerOptions().position(newStart).title("Start Location"));
+        else startMarker = mMap.addMarker(new MarkerOptions().position(newStart).title(getString(R.string.start_location_)));
 
         if (endMarker != null) endMarker.setPosition(newEnd);
-        else endMarker = mMap.addMarker(new MarkerOptions().position(newEnd).title("End Location"));
+        else endMarker = mMap.addMarker(new MarkerOptions().position(newEnd).title(getString(R.string.end_location_)));
 
         // Create or update route line
         if (routePolyline != null) {

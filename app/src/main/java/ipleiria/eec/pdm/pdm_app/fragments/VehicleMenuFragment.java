@@ -81,13 +81,13 @@ public class VehicleMenuFragment extends Fragment {
      */
     private void showDeleteConfirmationDialog(int position) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Delete Vehicle")
-                .setMessage("Are you sure you want to delete this vehicle?")
-                .setPositiveButton("Yes", (dialog, which) -> {
+                .setTitle(R.string.delete_vehicle)
+                .setMessage(R.string.are_you_sure_you_want_to_delete_this_vehicle)
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
                     dbHelper.deleteVehicle(vehicleList.get(position).getName());
                     vehicleList.remove(position);
                     vehicleAdapter.notifyItemRemoved(position);
-                    Toast.makeText(getContext(), "Vehicle deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.vehicle_deleted, Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton("No", null)
                 .show();
@@ -101,23 +101,23 @@ public class VehicleMenuFragment extends Fragment {
      */
     private void showEditVehicleDialog(int position, Vehicle vehicle) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Edit Vehicle");
+        builder.setTitle(R.string.edit_vehicle);
 
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
 
         EditText inputName = new EditText(getContext());
-        inputName.setHint("Vehicle Name");
+        inputName.setHint(R.string.vehicle__name);
         inputName.setText(vehicle.getName());
         layout.addView(inputName);
 
         EditText inputDetails = new EditText(getContext());
-        inputDetails.setHint("Vehicle Details");
+        inputDetails.setHint(R.string.vehicle_details);
         inputDetails.setText(vehicle.getDetails());
         layout.addView(inputDetails);
 
         EditText inputLicensePlate = new EditText(getContext());
-        inputLicensePlate.setHint("License Plate");
+        inputLicensePlate.setHint(R.string.license__plate);
         inputLicensePlate.setText(vehicle.getLicensePlate());
         layout.addView(inputLicensePlate);
 
@@ -133,7 +133,7 @@ public class VehicleMenuFragment extends Fragment {
         }
 
         Button editPhotoButton = new Button(getContext());
-        editPhotoButton.setText("Edit Photo");
+        editPhotoButton.setText(R.string.edit_photo);
         editPhotoButton.setOnClickListener(v -> selectPhoto(vehiclePhoto));
 
         photoContainer.addView(vehiclePhoto);
@@ -142,7 +142,7 @@ public class VehicleMenuFragment extends Fragment {
 
         builder.setView(layout);
 
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        builder.setPositiveButton(R.string.save, (dialog, which) -> {
             String name = inputName.getText().toString();
             String details = inputDetails.getText().toString();
             String licensePlate = inputLicensePlate.getText().toString();
@@ -156,7 +156,7 @@ public class VehicleMenuFragment extends Fragment {
                 dbHelper.addVehicle(vehicle);
                 vehicleAdapter.notifyItemChanged(position);
             } else {
-                Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.all__fields_are_required, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -195,21 +195,21 @@ public class VehicleMenuFragment extends Fragment {
      */
     private void showAddVehicleDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Add New Vehicle");
+        builder.setTitle(R.string.add_new_vehicle);
 
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
 
         EditText inputName = new EditText(getContext());
-        inputName.setHint("Vehicle Name");
+        inputName.setHint(R.string.vehicle_name);
         layout.addView(inputName);
 
         EditText inputDetails = new EditText(getContext());
-        inputDetails.setHint("Vehicle Details");
+        inputDetails.setHint(R.string.vehicle_details);
         layout.addView(inputDetails);
 
         EditText inputLicensePlate = new EditText(getContext());
-        inputLicensePlate.setHint("License Plate");
+        inputLicensePlate.setHint(R.string.license_plate);
         layout.addView(inputLicensePlate);
 
         ImageView vehiclePhoto = new ImageView(getContext());
@@ -222,7 +222,7 @@ public class VehicleMenuFragment extends Fragment {
 
         vehiclePhoto.setOnClickListener(v -> selectPhoto(vehiclePhoto));
 
-        builder.setPositiveButton("Add", (dialog, which) -> {
+        builder.setPositiveButton(R.string.add, (dialog, which) -> {
             String name = inputName.getText().toString();
             String details = inputDetails.getText().toString();
             String licensePlate = inputLicensePlate.getText().toString();
@@ -234,11 +234,11 @@ public class VehicleMenuFragment extends Fragment {
                 vehicleList.add(newVehicle);
                 vehicleAdapter.notifyItemInserted(vehicleList.size() - 1);
             } else {
-                Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.all_fields_are_required, Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
 
         builder.show();
     }

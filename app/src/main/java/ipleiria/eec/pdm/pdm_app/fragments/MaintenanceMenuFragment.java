@@ -40,26 +40,26 @@ public class MaintenanceMenuFragment extends Fragment {
      */
     private void showAddMaintenanceDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Add Maintenance Record");
+        builder.setTitle(R.string.add_maintenance__record);
 
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
 
         EditText inputServiceType = new EditText(getContext());
-        inputServiceType.setHint("Service Type (e.g., Oil Change)");
+        inputServiceType.setHint(R.string.service_type_e_g_oil_change);
         layout.addView(inputServiceType);
 
         EditText inputServiceDate = new EditText(getContext());
-        inputServiceDate.setHint("Service Date (YYYY-MM-DD)");
+        inputServiceDate.setHint(R.string.service_date_yyyy_mm_dd);
         layout.addView(inputServiceDate);
 
         EditText inputServiceCost = new EditText(getContext());
-        inputServiceCost.setHint("Service Cost ($)");
+        inputServiceCost.setHint(R.string.service_cost);
         layout.addView(inputServiceCost);
 
         builder.setView(layout);
 
-        builder.setPositiveButton("Add", (dialog, which) -> {
+        builder.setPositiveButton(R.string.addd, (dialog, which) -> {
             String serviceType = inputServiceType.getText().toString();
             String serviceDate = inputServiceDate.getText().toString();
             String serviceCost = inputServiceCost.getText().toString();
@@ -68,11 +68,11 @@ public class MaintenanceMenuFragment extends Fragment {
                 maintenanceList.add(new Maintenance(serviceType, serviceDate, serviceCost));
                 maintenanceAdapter.notifyItemInserted(maintenanceList.size() - 1);
             } else {
-                Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.all___fields_are_required, Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(R.string.cancell, (dialog, which) -> dialog.cancel());
 
         builder.show();
     }
@@ -84,31 +84,31 @@ public class MaintenanceMenuFragment extends Fragment {
      */
     private void showEditMaintenanceDialog(int position, Maintenance maintenance) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Edit Maintenance");
+        builder.setTitle(R.string.edit_maintenance);
 
         // Input fields
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
 
         EditText inputServiceType = new EditText(getContext());
-        inputServiceType.setHint("Service Type");
+        inputServiceType.setHint(R.string.service_type_);
         inputServiceType.setText(maintenance.getServiceType());
         layout.addView(inputServiceType);
 
         EditText inputServiceDate = new EditText(getContext());
-        inputServiceDate.setHint("Service Date (YYYY-MM-DD)");
+        inputServiceDate.setHint(R.string.service_date_yyyy_mm_dd_);
         inputServiceDate.setText(maintenance.getServiceDate());
         layout.addView(inputServiceDate);
 
         EditText inputServiceCost = new EditText(getContext());
-        inputServiceCost.setHint("Service Cost ($)");
+        inputServiceCost.setHint(R.string.service_cost_);
         inputServiceCost.setText(maintenance.getServiceCost());
         layout.addView(inputServiceCost);
 
         builder.setView(layout);
 
         // Add buttons
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        builder.setPositiveButton(R.string.save_, (dialog, which) -> {
             String serviceType = inputServiceType.getText().toString();
             String serviceDate = inputServiceDate.getText().toString();
             String serviceCost = inputServiceCost.getText().toString();
@@ -119,11 +119,11 @@ public class MaintenanceMenuFragment extends Fragment {
                 maintenance.setServiceCost(serviceCost);
                 maintenanceAdapter.notifyItemChanged(position);
             } else {
-                Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.all___fields_are_required, Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(R.string.cancell, (dialog, which) -> dialog.cancel());
 
         builder.show();
     }
@@ -134,12 +134,12 @@ public class MaintenanceMenuFragment extends Fragment {
      */
     private void showDeleteConfirmationDialog(int position) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Delete Maintenance Record")
-                .setMessage("Are you sure you want to delete this maintenance record?")
-                .setPositiveButton("Yes", (dialog, which) -> {
+                .setTitle(R.string.delete_maintenance_record)
+                .setMessage(R.string.are_you_sure_you_want_to_delete_this_maintenance_record)
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
                     maintenanceList.remove(position);
                     maintenanceAdapter.notifyItemRemoved(position);
-                    Toast.makeText(getContext(), "Maintenance record deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), R.string.maintenance_record_deleted, Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton("No", null)
                 .show();
@@ -148,7 +148,7 @@ public class MaintenanceMenuFragment extends Fragment {
 
     private void showSelectVehicleDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Select Vehicle");
+        builder.setTitle(R.string.select_vehicle);
 
         List<Vehicle> vehicleList = new VehicleDatabaseHelper(getContext()).getAllVehicles();
         String[] vehicleNames = new String[vehicleList.size()];
@@ -163,7 +163,7 @@ public class MaintenanceMenuFragment extends Fragment {
             fabAddMaintenance.setVisibility(View.VISIBLE);
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
 
         builder.show();
     }
@@ -191,7 +191,7 @@ public class MaintenanceMenuFragment extends Fragment {
 
     private void showSelectVehicleDialog(TextView tvSelectedVehicle) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Select Vehicle");
+        builder.setTitle(R.string.select_vehicle);
 
         List<Vehicle> vehicleList = new VehicleDatabaseHelper(getContext()).getAllVehicles();
         String[] vehicleNames = new String[vehicleList.size()];
@@ -201,12 +201,12 @@ public class MaintenanceMenuFragment extends Fragment {
 
         builder.setItems(vehicleNames, (dialog, which) -> {
             Vehicle selectedVehicle = vehicleList.get(which);
-            tvSelectedVehicle.setText("Selected Vehicle: " + selectedVehicle.getName());
+            tvSelectedVehicle.setText(getString(R.string.selected_vehicle) + selectedVehicle.getName());
             FloatingActionButton fabAddMaintenance = getView().findViewById(R.id.fab_add_maintenance);
             fabAddMaintenance.setVisibility(View.VISIBLE);
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());
 
         builder.show();
     }

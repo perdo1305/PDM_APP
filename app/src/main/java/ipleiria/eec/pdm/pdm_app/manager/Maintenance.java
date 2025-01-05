@@ -1,7 +1,7 @@
 package ipleiria.eec.pdm.pdm_app.manager;
 
 /**
- * Represents a maintenance record for a vehicle.
+ * Mostra os registos de manutenção de um veículo.
  */
 public class Maintenance {
     private String serviceType;
@@ -9,11 +9,11 @@ public class Maintenance {
     private String serviceCost;
 
     /**
-     * Constructs a new Maintenance record with the specified details.
+     * Cria uma nova manutenção com os detalhes especificados.
      *
-     * @param serviceType the type of the service
-     * @param serviceDate the date of the service
-     * @param serviceCost the cost of the service
+     * @param serviceType tipo de serviço
+     * @param serviceDate data do serviço
+     * @param serviceCost custo do serviço
      */
     public Maintenance(String serviceType, String serviceDate, String serviceCost) {
         this.serviceType = serviceType;
@@ -22,54 +22,54 @@ public class Maintenance {
     }
 
     /**
-     * Returns the type of the service.
+     * Devolve o tipo de serviço.
      *
-     * @return the type of the service
+     * @return o tipo de serviço
      */
     public String getServiceType() {
         return serviceType;
     }
 
     /**
-     * Sets the type of the service.
+     * Define o tipo de serviço.
      *
-     * @param serviceType the new type of the service
+     * @param serviceType o novo tipo de serviço
      */
     public void setServiceType(String serviceType) {
         this.serviceType = serviceType;
     }
 
     /**
-     * Returns the date of the service.
+     * Devolve a data do serviço.
      *
-     * @return the date of the service
+     * @return a data do serviço
      */
     public String getServiceDate() {
         return serviceDate;
     }
 
     /**
-     * Sets the date of the service.
+     * Define a data do serviço.
      *
-     * @param serviceDate the new date of the service
+     * @param serviceDate a nova data do serviço
      */
     public void setServiceDate(String serviceDate) {
         this.serviceDate = serviceDate;
     }
 
     /**
-     * Returns the cost of the service.
+     * Devolve o custo do serviço.
      *
-     * @return the cost of the service
+     * @return o custo do serviço
      */
     public String getServiceCost() {
         return serviceCost;
     }
 
     /**
-     * Sets the cost of the service.
+     * Define o custo do serviço.
      *
-     * @param serviceCost the new cost of the service
+     * @param serviceCost o novo custo do serviço
      */
     public void setServiceCost(String serviceCost) {
         this.serviceCost = serviceCost;
