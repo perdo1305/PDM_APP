@@ -23,6 +23,9 @@ import ipleiria.eec.pdm.pdm_app.fragments.MaintenanceMenuFragment;
 import ipleiria.eec.pdm.pdm_app.fragments.TripMenuFragment;
 import ipleiria.eec.pdm.pdm_app.fragments.VehicleMenuFragment;
 
+/**
+ * Main activity of the application.
+ */
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             showSettingsDialog();
@@ -84,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Shows the settings dialog.
+     */
     private void showSettingsDialog() {
         String[] options = {"\uD83C\uDF0D Change Language", "☯\uFE0E Toggle Dark Mode"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -99,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    /**
+     * Shows the language selection dialog.
+     */
     private void showLanguageDialog() {
         String[] languages = {"\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67\uDB40\uDC7F English", "\uD83C\uDDF5\uD83C\uDDF9 Portuguese", "\uD83C\uDDE9\uD83C\uDDEA German","\uD83C\uDDE8\uD83C\uDDF3 Chinese(simplied)"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -122,6 +130,11 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    /**
+     * Sets the locale for the application.
+     *
+     * @param lang the language code
+     */
     private void setLocale(String lang) {
         Locale locale = new Locale(lang);
         Locale.setDefault(locale);
@@ -131,6 +144,9 @@ public class MainActivity extends AppCompatActivity {
         recreate();
     }
 
+    /**
+     * Shows the help dialog.
+     */
     private void showHelpDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Help")
@@ -139,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    /**
+     * Shows the about dialog.
+     */
     private void showAboutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("About");
