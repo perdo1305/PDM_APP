@@ -18,7 +18,8 @@ public class Vehicle {
      * @param photoUri the URI of the vehicle's photo
      * @param licensePlate the license plate of the vehicle
      */
-    public Vehicle(String name, String details, String photoUri, String licensePlate) {
+
+    public Vehicle(int vehicleId, String name, String details, String photoUri, String licensePlate) {
         this.name = name;
         this.details = details;
         this.photoUri = photoUri;
@@ -97,4 +98,7 @@ public class Vehicle {
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
     }
+
+    public int getVehicleId() { return vehicleId; }
+    public void setVehicleId(int vehicleId) { this.vehicleId = vehicleId; }
 }

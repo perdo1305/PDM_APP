@@ -123,7 +123,7 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
      *
      * @param name the name of the vehicle to delete
      */
-    public void deleteVehicle(String name) {
+    public void deleteVehicle(int vehicleId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_VEHICLES, COLUMN_ID + " = ?", new String[]{String.valueOf(vehicleId)});
         db.close();

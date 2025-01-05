@@ -84,11 +84,11 @@ public class VehicleMenuFragment extends Fragment {
                 .setTitle("Delete Vehicle")
                 .setMessage("Are you sure you want to delete this vehicle?")
                 .setPositiveButton("Yes", (dialog, which) -> {
-    dbHelper.deleteVehicle(Integer.parseInt(String.valueOf(vehicleList.get(position).getVehicleId())));
-    vehicleList.remove(position);
-    vehicleAdapter.notifyItemRemoved(position);
-    Toast.makeText(getContext(), "Vehicle deleted", Toast.LENGTH_SHORT).show();
-})
+                    dbHelper.deleteVehicle(Integer.parseInt((String.valueOf(vehicleList.get(position).getVehicleId()))));
+                    vehicleList.remove(position);
+                    vehicleAdapter.notifyItemRemoved(position);
+                    Toast.makeText(getContext(), "Vehicle deleted", Toast.LENGTH_SHORT).show();
+                })
                 .setNegativeButton("No", null)
                 .show();
     }
