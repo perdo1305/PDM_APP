@@ -11,7 +11,7 @@
         <item name="android:statusBarColor">#E64A19</item>
 
         <!-- Navigation bar color -->
-        <item name="android:navigationBarColor">#FF5722</item>
+        <!--<item name="android:navigationBarColor">#FF5722</item>-->
     </style>
 
     <style name="Theme.PDM_APP" parent="Base.Theme.PDM_APP" />
