@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
      * Exibe o diálogo de configurações.
      */
     private void showSettingsDialog() {
-        String[] options = {"\uD83C\uDF0D Change Language", "☯\uFE0E Toggle Dark Mode", "🔒 Log Out"};
+        String[] options = {getString(R.string.change_language), getString(R.string.toggle_dark_mode), getString(R.string.log_out)};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Settings")
+        builder.setTitle(getString(R.string.settings))
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
                         mostrarDialogoIdioma();

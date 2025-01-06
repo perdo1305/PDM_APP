@@ -111,5 +111,32 @@
     <string name="end_location_">End Location</string>
     <string name="help_">Help</string>
     <string name="select_language">🌍 Select Language</string>
+    <string name="please_login">Please Login</string>
+    <string name="please_enter_email_id">Please enter email id</string>
+    <string name="please_enter_your_password">Please enter your password</string>
+    <string name="the_given_password_is_invalid_password_should_be_at_least_6_characters">The given password is invalid. Password should be at least 6 characters!</string>
+    <string name="login_error_please_login_again">Login Error, Please Login  Again</string>
+    <string name="you_are_logged_in">You are Logged in</string>
+    <string name="please_register">Please register</string>
+    <string name="you_are_logged_in_">You are Logged in</string>
+    <string name="please_enter_email_id_">Please enter email id</string>
+    <string name="please_enter_a_valid_email">Please enter a valid email</string>
+    <string name="please_enter_your_password_">Please enter your password</string>
+    <string name="password_should_be_at_least_6_characters">Password should be at least 6 characters!</string>
+    <string name="please_confirm_your_password">Please confirm your password</string>
+    <string name="passwords_dont_match">Passwords dont match!</string>
+    <string name="the_email_adress_is_already_in_use_by_another_account">The email adress is already in use by another account!</string>
+    <string name="signup_unsuccessful_please_try_again">SignUp Unsuccessful, Please Try Again</string>
+    <string name="change_language">🌍 Change Language</string>
+    <string name="toggle_dark_mode">☯︎ Toggle Dark Mode</string>
+    <string name="log_out">🔒 Log Out</string>
+    <string name="already_have_an_account_sign_in_here">Already have an account? Sign in here</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="add_maintenance_record_">Add Maintenance Record</string>
+    <string name="vehicle_deleted_successfully">vehicle delete\n</string>
+    <string name="no">No</string>
 
 </resources>

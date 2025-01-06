@@ -33,7 +33,7 @@ import ipleiria.eec.pdm.pdm_app.manager.VehicleAdapter;
 import ipleiria.eec.pdm.pdm_app.manager.VehicleDatabaseHelper;
 
 /**
- * Fragment for displaying and managing the list of vehicles.
+ * Fragmento para exibir e gerenciar a lista de veículos.
  */
 public class VehicleMenuFragment extends Fragment {
     private RecyclerView vehicleRecyclerView;
@@ -74,22 +74,22 @@ public class VehicleMenuFragment extends Fragment {
         return view;
     }
 
-    /**
-     * Shows a confirmation dialog to delete a vehicle.
-     *
-     * @param position the position of the vehicle to delete
-     */
+/**
+* Mostra um diálogo de confirmação para excluir um veículo.
+*
+* @param position a posição do veículo a ser excluído
+*/
     private void showDeleteConfirmationDialog(int position) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Delete Vehicle")
-                .setMessage("Are you sure you want to delete this vehicle?")
-                .setPositiveButton("Yes", (dialog, which) -> {
+                .setTitle(R.string.delete_vehicle)
+                .setMessage(R.string.are_you_sure_you_want_to_delete_this_vehicle)
+                .setPositiveButton(R.string.yes, (dialog, which) -> {
                     dbHelper.deleteVehicle(Integer.parseInt(String.valueOf(vehicleList.get(position).getVehicleId())));
                     vehicleList.remove(position);
                     vehicleAdapter.notifyItemRemoved(position);
-                    Toast.makeText(getContext(), "Vehicle deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),R.string.vehicle_deleted_successfully, Toast.LENGTH_SHORT).show();
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.no, null)
                 .show();
     }
 
@@ -163,7 +163,7 @@ public class VehicleMenuFragment extends Fragment {
             }
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.cancel());
 
         builder.show();
     }
