@@ -70,4 +70,30 @@
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
         android:padding="8dp" />
+
+    <!-- TextViews to display received strings -->
+    <TextView
+        android:id="@+id/receivedString1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="KM/h: "
+        android:textSize="16sp"
+        android:paddingVertical="8dp" />
+
+    <TextView
+        android:id="@+id/receivedString2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="RPM: "
+        android:textSize="16sp"
+        android:paddingVertical="8dp" />
+
+    <!-- LineChart to display the graph -->
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="16dp" />
+
+
 </LinearLayout>
