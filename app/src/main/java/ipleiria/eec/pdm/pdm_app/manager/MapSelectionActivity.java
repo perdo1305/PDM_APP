@@ -18,10 +18,18 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import ipleiria.eec.pdm.pdm_app.R;
 
+/**
+ * Atividade para selecionar uma localização no mapa.
+ */
 public class MapSelectionActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private Marker selectedMarker;
 
+    /**
+     * Chamado quando a atividade é criada.
+     *
+     * @param savedInstanceState o estado salvo da instância
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,11 @@ public class MapSelectionActivity extends FragmentActivity implements OnMapReady
         }
     }
 
+    /**
+     * Chamado quando o mapa está pronto para ser usado.
+     *
+     * @param googleMap a instância do GoogleMap
+     */
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
@@ -54,6 +67,12 @@ public class MapSelectionActivity extends FragmentActivity implements OnMapReady
         });
     }
 
+    /**
+     * Desenha uma linha entre duas localizações no mapa.
+     *
+     * @param start a localização inicial
+     * @param end a localização final
+     */
     private void drawLine(LatLng start, LatLng end) {
         mMap.addPolyline(new PolylineOptions()
                 .add(start, end)
@@ -61,6 +80,11 @@ public class MapSelectionActivity extends FragmentActivity implements OnMapReady
                 .color(Color.RED));
     }
 
+    /**
+     * Manipula o clique em um item de viagem.
+     *
+     * @param trip a viagem clicada
+     */
     public void onItemClick(Trip trip) {
         LatLng startLocation = new LatLng(trip.getStartLatitude(), trip.getStartLongitude());
         LatLng endLocation = new LatLng(trip.getEndLatitude(), trip.getEndLongitude());

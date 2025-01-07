@@ -29,12 +29,23 @@ import ipleiria.eec.pdm.pdm_app.manager.MaintenanceAdapter;
 import ipleiria.eec.pdm.pdm_app.manager.Vehicle;
 import ipleiria.eec.pdm.pdm_app.manager.VehicleDatabaseHelper;
 
+/**
+ * Fragmento para exibir e gerenciar o menu de manutenção.
+ */
 public class MaintenanceMenuFragment extends Fragment {
     private RecyclerView maintenanceRecyclerView;
     private MaintenanceAdapter maintenanceAdapter;
     private List<Maintenance> maintenanceList;
     private int selectedVehicleId = -1;
 
+    /**
+     * Chamado para criar a hierarquia de views associada ao fragmento.
+     *
+     * @param inflater o LayoutInflater usado para inflar qualquer view no fragmento
+     * @param container o ViewGroup pai ao qual a view do fragmento será anexada
+     * @param savedInstanceState o estado salvo da instância
+     * @return a view para o fragmento
+     */
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maintenance_menu, container, false);
@@ -81,18 +92,31 @@ public class MaintenanceMenuFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Carrega todos os registros de manutenção.
+     */
     private void loadAllMaintenanceRecords() {
         maintenanceList.clear();
         maintenanceList.addAll(new VehicleDatabaseHelper(getContext()).getAllMaintenance());
         maintenanceAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Carrega os registros de manutenção com base no veículo selecionado.
+     *
+     * @param vehicleId o ID do veículo selecionado
+     */
     private void loadMaintenanceRecords(int vehicleId) {
         maintenanceList.clear();
         maintenanceList.addAll(new VehicleDatabaseHelper(getContext()).getMaintenanceByVehicleId(vehicleId));
         maintenanceAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * Exibe um diálogo para selecionar um veículo.
+     *
+     * @param tvSelectedVehicle o TextView que exibe o veículo selecionado
+     */
     private void showSelectVehicleDialog(TextView tvSelectedVehicle) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Select Vehicle");
@@ -117,9 +141,14 @@ public class MaintenanceMenuFragment extends Fragment {
         builder.show();
     }
 
+    /**
+     * Exibe um diálogo para adicionar um novo registro de manutenção.
+     *
+     * @param vehicleId o ID do veículo selecionado
+     */
     private void showAddMaintenanceDialog(int vehicleId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Add Maintenance Record");
+        builder.setTitle(R.string.add_maintenance_record_);
 
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -129,11 +158,11 @@ public class MaintenanceMenuFragment extends Fragment {
         layout.addView(inputServiceType);
 
         EditText inputServiceDate = new EditText(getContext());
-        inputServiceDate.setHint("Service Date (dd - mm - yyyy)");
+        inputServiceDate.setHint(R.string.service_date_yyyy_mm_dd_);
         layout.addView(inputServiceDate);
 
         EditText inputServiceCost = new EditText(getContext());
-        inputServiceCost.setHint("Service Cost €");
+        inputServiceCost.setHint(R.string.service_cost_);
         layout.addView(inputServiceCost);
 
         builder.setView(layout);
@@ -160,6 +189,12 @@ public class MaintenanceMenuFragment extends Fragment {
         builder.show();
     }
 
+    /**
+     * Exibe um diálogo para editar um registro de manutenção existente.
+     *
+     * @param position a posição do registro na lista
+     * @param maintenance o registro de manutenção a ser editado
+     */
     private void showEditMaintenanceDialog(int position, Maintenance maintenance) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle(R.string.edit_maintenance);
@@ -209,6 +244,11 @@ public class MaintenanceMenuFragment extends Fragment {
         builder.show();
     }
 
+    /**
+     * Exibe um diálogo de confirmação para excluir um registro de manutenção.
+     *
+     * @param position a posição do registro na lista
+     */
     private void showDeleteConfirmationDialog(int position) {
         new AlertDialog.Builder(getContext())
                 .setTitle(R.string.delete_maintenance_record)

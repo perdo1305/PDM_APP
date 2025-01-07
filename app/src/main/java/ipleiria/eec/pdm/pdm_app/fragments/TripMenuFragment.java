@@ -48,6 +48,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+/**
+ * Fragmento para exibir e gerenciar o menu de viagens.
+ */
 public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     private static final String SHARED_PREFS_NAME = "trip_prefs";
     private static final String TRIP_LIST_KEY = "trip_list";
@@ -66,6 +69,14 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
 
     private EditText inputStartLat, inputStartLng, inputEndLat, inputEndLng;
 
+    /**
+     * Chamado para criar a hierarquia de views associada ao fragmento.
+     *
+     * @param inflater o LayoutInflater usado para inflar qualquer view no fragmento
+     * @param container o ViewGroup pai ao qual a view do fragmento será anexada
+     * @param savedInstanceState o estado salvo da instância
+     * @return a view para o fragmento
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -117,6 +128,11 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
+    /**
+     * Salva a lista de viagens nas SharedPreferences.
+     *
+     * @param trips a lista de viagens a ser salva
+     */
     private void saveTrips(List<Trip> trips) {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -126,6 +142,11 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         editor.apply();
     }
 
+    /**
+     * Carrega a lista de viagens das SharedPreferences.
+     *
+     * @return a lista de viagens carregada
+     */
     private List<Trip> loadTrips() {
         SharedPreferences sharedPreferences = getContext().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -134,12 +155,20 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         return gson.fromJson(json, type);
     }
 
+    /**
+     * Chamado quando o fragmento é destruído.
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
         saveTrips(tripList);
     }
 
+    /**
+     * Chamado quando o mapa está pronto para ser usado.
+     *
+     * @param googleMap a instância do GoogleMap
+     */
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
@@ -175,6 +204,9 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
+    /**
+     * Exibe um diálogo para adicionar uma nova viagem.
+     */
     private void showAddTripDialog() {
     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
     builder.setTitle(R.string.add_new_trip);
@@ -273,8 +305,9 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
 }
 
     /**
-     * Filters trips based on search query.
-     * @param query Search text.
+     * Filtra as viagens com base na consulta de pesquisa.
+     *
+     * @param query o texto de pesquisa
      */
     private void filterTrips(String query) {
         List<Trip> filteredList = new ArrayList<>();
@@ -287,12 +320,23 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         tripAdapter.updateList(filteredList);
     }
 
+    /**
+     * Atualiza a lista de viagens e notifica o adapter.
+     *
+     * @param newList a nova lista de viagens
+     */
     public void updateList(List<Trip> newList) {
         this.tripList = newList; // Replace the adapter's list
         tripAdapter.notifyDataSetChanged(); // Notify the adapter
     }
 
-    // Handle the results from MapSelectionActivity
+    /**
+     * Manipula os resultados da atividade MapSelectionActivity.
+     *
+     * @param requestCode o código de solicitação
+     * @param resultCode o código de resultado
+     * @param data os dados retornados
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -317,9 +361,10 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * Updates start and end markers dynamically.
-     * @param newStart New start location.
-     * @param newEnd New end location.
+     * Atualiza dinamicamente os marcadores de início e fim.
+     *
+     * @param newStart a nova localização de início
+     * @param newEnd a nova localização de fim
      */
     public void updateMarkers(LatLng newStart, LatLng newEnd) {
         if (startMarker != null) startMarker.setPosition(newStart);

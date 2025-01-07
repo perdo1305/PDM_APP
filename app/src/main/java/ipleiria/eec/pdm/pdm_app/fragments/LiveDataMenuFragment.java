@@ -36,6 +36,9 @@ import java.util.ArrayList;
 
 import ipleiria.eec.pdm.pdm_app.R;
 
+/**
+ * Fragmento para exibir e gerenciar o menu de dados ao vivo.
+ */
 public class LiveDataMenuFragment extends Fragment {
 
     private TextView mStatusBlueTv, mPairedTv;
@@ -68,6 +71,14 @@ public class LiveDataMenuFragment extends Fragment {
         }
     };
 
+    /**
+     * Chamado para criar a hierarquia de views associada ao fragmento.
+     *
+     * @param inflater o LayoutInflater usado para inflar qualquer view no fragmento
+     * @param container o ViewGroup pai ao qual a view do fragmento será anexada
+     * @param savedInstanceState o estado salvo da instância
+     * @return a view para o fragmento
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -99,6 +110,9 @@ public class LiveDataMenuFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Inicializa o lançador de atividade para habilitar o Bluetooth.
+     */
     private void initializeBluetoothLauncher() {
         enableBluetooth = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
@@ -112,6 +126,9 @@ public class LiveDataMenuFragment extends Fragment {
         });
     }
 
+    /**
+     * Configura o status do Bluetooth.
+     */
     private void setupBluetoothStatus() {
         if (mBlueAdapter == null) {
             mStatusBlueTv.setText(R.string.bluetooth_is_not_available);
@@ -120,15 +137,28 @@ public class LiveDataMenuFragment extends Fragment {
         }
     }
 
+    /**
+     * Exibe uma mensagem Toast.
+     *
+     * @param msg a mensagem a ser exibida
+     */
     private void showToast(String msg) {
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Verifica se as permissões de Bluetooth foram concedidas.
+     *
+     * @return true se as permissões foram concedidas, false caso contrário
+     */
     private boolean hasBluetoothPermissions() {
         return ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.BLUETOOTH_SCAN) == PackageManager.PERMISSION_GRANTED;
     }
 
+    /**
+     * Verifica e solicita permissões de Bluetooth, se necessário.
+     */
     private void checkBTPermissions() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !hasBluetoothPermissions()) {
             requestPermissions(new String[]{
@@ -140,6 +170,11 @@ public class LiveDataMenuFragment extends Fragment {
         }
     }
 
+    /**
+     * Manipula o clique no botão para desligar o Bluetooth.
+     *
+     * @param view a view que foi clicada
+     */
     public void onClickOn(View view) {
         mPairedTv.setVisibility(View.GONE);
         lvNewDevices.setVisibility(View.GONE);
@@ -152,6 +187,11 @@ public class LiveDataMenuFragment extends Fragment {
         }
     }
 
+    /**
+     * Manipula o clique no botão para descobrir dispositivos Bluetooth.
+     *
+     * @param view a view que foi clicada
+     */
     @SuppressLint("MissingPermission")
     public void onClickOff(View view) {
         if (!hasBluetoothPermissions()) return;
@@ -186,6 +226,9 @@ public class LiveDataMenuFragment extends Fragment {
         showToast(getString(R.string.discovering_devices));
     }
 
+    /**
+     * Chamado quando o fragmento é iniciado.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -196,6 +239,9 @@ public class LiveDataMenuFragment extends Fragment {
         }
     }
 
+    /**
+     * Chamado quando o fragmento é parado.
+     */
     @Override
     public void onStop() {
         super.onStop();
@@ -204,6 +250,12 @@ public class LiveDataMenuFragment extends Fragment {
             isReceiverRegistered = false;
         }
     }
+
+    /**
+     * Conecta-se a um dispositivo Bluetooth.
+     *
+     * @param device o dispositivo Bluetooth ao qual se conectar
+     */
     @SuppressLint("MissingPermission")
     private void connectToDevice(BluetoothDevice device) {
         if (!hasBluetoothPermissions()) {
