@@ -134,4 +134,8 @@
     <string name="add_maintenance_record_">Adicionar Registo de Manutenção</string>
     <string name="vehicle_deleted_successfully">Veículo eliminado com sucesso</string>
     <string name="no">Não</string>
+    <string name="please_select_a_vehicle_first">Por favor, escolha um veículo primeiro!</string>
+    <string name="location_permission_denied">Permissão de localização negada</string>
+    <string name="data">Data:</string>
+    <string name="custo">Custo:</string>
 </resources>

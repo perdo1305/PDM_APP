@@ -351,7 +351,10 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
         }
     }
 
-    // Method to read data from the Bluetooth device
+
+    /**
+     * Método para ler dados do dispositivo Bluetooth.
+     */
     private void readData() {
         byte[] buffer = new byte[1024];
         int bytes;
@@ -382,7 +385,12 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
             }
         }
     }
-    // Method to stop reading data and close the connection
+
+
+    /**
+     * Método para parar de ler dados e fechar a conexão.
+     */
+
     private void stopReading() {
         isReading = false;
         try {
@@ -394,7 +402,10 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
         }
     }
 
-    // Method to update the graph with new data
+
+/**
+ * Método para atualizar o gráfico com novos dados.
+ */
     private void addEntry(double rpmValue, double kmhValue) {
         rpmDataSet.addEntry(new Entry(lastX, (float) rpmValue));
         kmhDataSet.addEntry(new Entry(lastX++, (float) kmhValue));

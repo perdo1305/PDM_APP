@@ -262,7 +262,7 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
                     startLocationUpdates();
                 }
             } else {
-                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.location_permission_denied, Toast.LENGTH_SHORT).show();
             }
         }
     }
