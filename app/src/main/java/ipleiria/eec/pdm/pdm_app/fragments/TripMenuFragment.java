@@ -2,6 +2,8 @@ package ipleiria.eec.pdm.pdm_app.fragments;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.google.gson.Gson;
@@ -10,6 +12,7 @@ import java.lang.reflect.Type;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,12 +21,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+
+
 
 import ipleiria.eec.pdm.pdm_app.R;
 import ipleiria.eec.pdm.pdm_app.manager.MapSelectionActivity;
@@ -48,12 +59,21 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import android.location.Location;
+
 /**
  * Fragmento para exibir e gerenciar o menu de viagens.
  */
 public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     private static final String SHARED_PREFS_NAME = "trip_prefs";
     private static final String TRIP_LIST_KEY = "trip_list";
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
+
+    private FusedLocationProviderClient fusedLocationClient;
+    private LocationCallback locationCallback;
 
     private RecyclerView tripRecyclerView;
     private TripAdapter tripAdapter;
@@ -68,7 +88,26 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     private boolean isSelectingStart = true; // Tracks whether the user is selecting the start or end location
 
     private EditText inputStartLat, inputStartLng, inputEndLat, inputEndLng;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    if (location != null && mMap != null) {
+                        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
+                    }
+                }
+            }
+        };
+    }
     /**
      * Chamado para criar a hierarquia de views associada ao fragmento.
      *
@@ -81,6 +120,8 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trip_menu, container, false);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
         // Initialize RecyclerView
         tripRecyclerView = view.findViewById(R.id.trip_recycler_view);
@@ -162,6 +203,7 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     public void onDestroy() {
         super.onDestroy();
         saveTrips(tripList);
+        fusedLocationClient.removeLocationUpdates(locationCallback);
     }
 
     /**
@@ -173,6 +215,13 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
+
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
+            startLocationUpdates();
+        } else {
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        }
         // Enable map clicks for selecting locations
         mMap.setOnMapClickListener(latLng -> {
             if (isSelectingStart) {
@@ -203,7 +252,47 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
             }
         });
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    mMap.setMyLocationEnabled(true);
+                    startLocationUpdates();
+                }
+            } else {
+                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
+    @SuppressLint("MissingPermission")
+    private void startLocationUpdates() {
+        LocationRequest locationRequest = LocationRequest.create();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
+    }
+
+
+
+    @SuppressLint("MissingPermission")
+    private void getCurrentLocation() {
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(currentLatLng).title("My Location"));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
+                        }
+                    }
+                });
+    }
     /**
      * Exibe um diálogo para adicionar uma nova viagem.
      */
