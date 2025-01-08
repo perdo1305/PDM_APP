@@ -76,7 +76,7 @@ public class MaintenanceMenuFragment extends Fragment {
         FloatingActionButton fabAddMaintenance = view.findViewById(R.id.fab_add_maintenance);
         fabAddMaintenance.setOnClickListener(v -> {
             if (selectedVehicleId == -1) {
-                Toast.makeText(getContext(), "Please select a vehicle first!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.please_select_a_vehicle_first, Toast.LENGTH_SHORT).show();
             } else {
                 showAddMaintenanceDialog(selectedVehicleId);
             }
@@ -136,7 +136,7 @@ public class MaintenanceMenuFragment extends Fragment {
             fabAddMaintenance.setVisibility(View.VISIBLE);
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton(R.string.cancell, (dialog, which) -> dialog.dismiss());
 
         builder.show();
     }
@@ -266,7 +266,7 @@ public class MaintenanceMenuFragment extends Fragment {
                     }
                     Toast.makeText(getContext(), R.string.maintenance_record_deleted, Toast.LENGTH_SHORT).show();
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(R.string.no, null)
                 .show();
     }
 

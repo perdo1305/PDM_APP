@@ -27,14 +27,25 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     public TripAdapter(List<Trip> tripList) {
         this.tripList = tripList;
     }
-
+/**
+ * Método chamado quando o ViewHolder é vinculado a uma posição.
+ *
+ * @param holder o ViewHolder a ser vinculado
+ * @param position a posição do item no adapter
+ */
     @NonNull
     @Override
     public TripViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.trip_list_item, parent, false);
         return new TripViewHolder(view);
     }
-
+/**
+ * Cria um novo ViewHolder para a lista de viagens.
+ *
+ * @param parent o ViewGroup ao qual a nova View será adicionada após ser inflada
+ * @param viewType o tipo de view da nova View
+ * @return um novo TripViewHolder que contém a View para a lista de viagens
+ */
     @Override
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
         Trip trip = tripList.get(position);
@@ -52,6 +63,11 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
         });
     }
 
+    /**
+ * Retorna o número total de itens na lista de viagens.
+ *
+ * @return o número total de itens
+ */
     @Override
     public int getItemCount() {
         return tripList.size();
