@@ -129,18 +129,18 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateVehicle(Vehicle vehicle) {
+    public boolean updateVehicle(Vehicle vehicle) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, vehicle.getName());
         values.put(COLUMN_DETAILS, vehicle.getDetails());
-        values.put(COLUMN_PHOTO_URI, vehicle.getPhotoUri());
         values.put(COLUMN_LICENSE_PLATE, vehicle.getLicensePlate());
+        values.put(COLUMN_PHOTO_URI, vehicle.getPhotoUri());
 
-        db.update(TABLE_VEHICLES, values, COLUMN_ID + " = ?", new String[]{String.valueOf(vehicle.getVehicleId())});
+        int result = db.update(TABLE_VEHICLES, values, COLUMN_ID + " = ?", new String[]{String.valueOf(vehicle.getVehicleId())});
         db.close();
+        return result > 0;
     }
-
     /* Maintenance */
 
     public void deleteMaintenance(int maintenanceId) {

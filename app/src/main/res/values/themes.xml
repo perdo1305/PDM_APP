@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.PDM_APP" parent="Theme.Material3.DayNight">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">#FF5722</item>
-        <item name="colorPrimaryVariant">#E64A19</item>
-        <item name="colorSecondary">#03DAC5</item>
+        <item name="colorPrimary">#88D498</item>
+        <item name="colorPrimaryVariant">#1A936F</item>
+        <item name="colorSecondary">#114B5F</item>
 
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <!-- Status bar color -->
-        <item name="android:statusBarColor">#E64A19</item>
+        <item name="android:statusBarColor">#C6DABF</item>
 
         <!-- Navigation bar color -->
         <!--<item name="android:navigationBarColor">#FF5722</item>-->

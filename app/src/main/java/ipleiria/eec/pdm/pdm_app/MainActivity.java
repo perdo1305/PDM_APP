@@ -1,5 +1,6 @@
 package ipleiria.eec.pdm.pdm_app;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -23,6 +24,7 @@ import ipleiria.eec.pdm.pdm_app.fragments.LiveDataMenuFragment;
 import ipleiria.eec.pdm.pdm_app.fragments.MaintenanceMenuFragment;
 import ipleiria.eec.pdm.pdm_app.fragments.TripMenuFragment;
 import ipleiria.eec.pdm.pdm_app.fragments.VehicleMenuFragment;
+import ipleiria.eec.pdm.pdm_app.manager.LoginActivity;
 
 /**
  * Atividade principal da aplicação.
@@ -98,13 +100,17 @@ public class MainActivity extends AppCompatActivity {
                     if (which == 0) {
                         mostrarDialogoIdioma();
                     } else if (which == 1) {
-                        boolean isNightMode = (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES);
+                        boolean isNightMode = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
                         AppCompatDelegate.setDefaultNightMode(isNightMode ? AppCompatDelegate.MODE_NIGHT_NO : AppCompatDelegate.MODE_NIGHT_YES);
-                        recreate(); // Recreate the activity to apply the mode change immediately
+                        new android.os.Handler().post(() -> recreate());
                     } else if (which == 2) {
                         FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear the back stack
+                        startActivity(intent);
                         finish();
                     }
+
                 });
         builder.create().show();
     }
@@ -171,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         sobreTexto.setMovementMethod(LinkMovementMethod.getInstance());
         // Define o link para o GitHub
         TextView linkGitHub = view.findViewById(R.id.github_link);
-        linkGitHub.setText("https://github.com/your-repo");
+        linkGitHub.setText("https://github.com/perdo1305/PDM_APP");
         linkGitHub.setMovementMethod(LinkMovementMethod.getInstance());
 
         builder.setPositiveButton("OK", null);

@@ -33,6 +33,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -130,14 +131,18 @@ public class LiveDataMenuFragment extends Fragment {
         lineData = new LineData(rpmDataSet, kmhDataSet);
         lineChart.setData(lineData);
 
-        // Set colors for the datasets
-        rpmDataSet.setColor(Color.RED);
-        kmhDataSet.setColor(Color.BLUE);
+// Set colors for the datasets
+rpmDataSet.setColor(Color.parseColor("#88D498")); // Red color in hex
+kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
 
         // Customize LineChart
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.WHITE); // Set X axis text color to white
+
         YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.setTextColor(Color.WHITE); // Set left Y axis text color to white
+
         YAxis rightAxis = lineChart.getAxisRight();
         rightAxis.setEnabled(false);
 
@@ -232,6 +237,7 @@ public class LiveDataMenuFragment extends Fragment {
             showToast(getString(R.string.turning_on_bluetooth));
             Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             enableBluetooth.launch(intent);
+            mStatusBlueTv.setText("Bluetooth: ON");
         } else {
             showToast(getString(R.string.bluetooth_is_already_on));
         }
@@ -250,11 +256,16 @@ public class LiveDataMenuFragment extends Fragment {
         lvNewDevices.setVisibility(View.GONE);
         if (mBlueAdapter.isEnabled()) {
             mBlueAdapter.disable();
+            if(mBluetoothSocket.isConnected()) {
+                stopReading();
+            }
             showToast(getString(R.string.turning_bluetooth_off));
+            mStatusBlueTv.setText("Bluetooth: OFF");
         } else {
             showToast(getString(R.string.bluetooth_is_already_off));
         }
     }
+
     @SuppressLint("MissingPermission")
     public void btnDiscover(View view) {
         if (!hasBluetoothPermissions()) return;
@@ -273,6 +284,7 @@ public class LiveDataMenuFragment extends Fragment {
         requireContext().registerReceiver(mBroadcastReceiver, discoverDevicesIntent);
         isReceiverRegistered = true;
 
+        mStatusBlueTv.setText("Bluetooth: Discovering devices...");
         showToast(getString(R.string.discovering_devices));
     }
 
@@ -328,7 +340,7 @@ public class LiveDataMenuFragment extends Fragment {
             // Start a new thread to read data
             new Thread(this::readData).start();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             Log.e(getString(R.string.bluetooth), getString(R.string.connection_failed), e);
             showToast(getString(R.string.failed_to_connect_to) + device.getName());
         }
@@ -359,13 +371,12 @@ public class LiveDataMenuFragment extends Fragment {
                         });
                     }
                 }
-            } catch (Exception e) {
+            } catch (IOException e) {
                 Log.e("BluetoothData", "Error reading data", e);
                 isReading = false;
             }
         }
     }
-
     // Method to stop reading data and close the connection
     private void stopReading() {
         isReading = false;
@@ -373,7 +384,7 @@ public class LiveDataMenuFragment extends Fragment {
             if (mInputStream != null) mInputStream.close();
             if (mOutputStream != null) mOutputStream.close();
             if (mBluetoothSocket != null) mBluetoothSocket.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             Log.e("BluetoothData", "Error closing connection", e);
         }
     }
@@ -387,7 +398,6 @@ public class LiveDataMenuFragment extends Fragment {
         lineChart.setVisibleXRangeMaximum(50);
         lineChart.moveViewToX(lineData.getEntryCount());
     }
-
 
     // Method to update the graph with new data
 //    private void addEntry(double value) {
