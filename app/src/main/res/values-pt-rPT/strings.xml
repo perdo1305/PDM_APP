@@ -18,7 +18,7 @@
     <string name="settings">⚙️ Configurações</string>
     <string name="help">❔ Ajuda</string>
     <string name="about">ⓘ Sobre</string>
-    <string name="vehicle_name">Nome Veículo</string>
+    <string name="vehicle_name">Modelo do Veículo</string>
     <string name="last_maintenance_1000km_ago">Ultima manutenção: 1000km atrás</string>
     <string name="destination_xyz">Destino: XYZ</string>
     <string name="distance_xx_km">Distância: XX km</string>
@@ -33,7 +33,7 @@
     <string name="enter_a_value">Digite valor</string>
     <string name="add_value">Adicione valor</string>
     <string name="possible_interactions_tap_select_long_press_delete_swipe_return">Possiveis Interações: - Toque: selecionar - Pressionar: apagar - Swipe: voltar</string>
-    <string name="license_plate">Matrícula</string>
+    <string name="license_plate">Matrícula (XX-XX-XX)</string>
     <string name="select_vehicle">Véculo Selecionado</string>
     <string name="google_maps_key">AIzaSyAt5ic-4_EbBWH9sZbylI1x-XZzAgApKcY</string>
     <string name="selected_vehicle_none">Veículo Selecionado: nenhum</string>
@@ -63,9 +63,9 @@
     <string name="yes">Sim</string>
     <string name="vehicle_deleted">Veículo apagado</string>
     <string name="edit_vehicle">Editar Veículo</string>
-    <string name="vehicle__name">Nome Veículo</string>
-    <string name="vehicle_details">Detalhes Veículo</string>
-    <string name="license__plate">Matrícula</string>
+    <string name="vehicle__name">Modelo do Veículo</string>
+    <string name="vehicle_details">Detalhes Veículo ( ano / cv)</string>
+    <string name="license__plate">Matrícula (XX-XX-XX)</string>
     <string name="edit_photo">Editar foto</string>
     <string name="save">Guardar</string>
     <string name="all__fields_are_required">Todos os campos são obrigatórios</string>
@@ -76,14 +76,14 @@
     <string name="this_project_is_an_application_that_manages_vehicles_developed_by_bernardo_santos_and_pedro_ferreira_for_more_information_visit_our_github_repository">Este projeto é uma aplicação de gestão de veículos desenvolvida por Bernardo Santos e Pedro Ferreira.        Para mais informações, visite o nosso repositório no GitHub:</string>
     <string name="add_maintenance__record">Adicionar Registo de Manutenção</string>
     <string name="service_type_e_g_oil_change">Tipo de Serviço (ex. Óleo)</string>
-    <string name="service_date_yyyy_mm_dd">Data de Serviço (AAAA-MM-DD)</string>
+    <string name="service_date_yyyy_mm_dd">Data de Serviço (dd-mm-yyyy)</string>
     <string name="service_cost">Custo Serviço (€)</string>
     <string name="addd">Adicionar</string>
     <string name="all___fields_are_required">Todos os campos são obrigatórios</string>
     <string name="cancell">Cancelar</string>
     <string name="edit_maintenance">Editar Manutenção</string>
     <string name="service_type_">Tipo de Serviço</string>
-    <string name="service_date_yyyy_mm_dd_">Data de Serviço (AAAA-MM-DD)</string>
+    <string name="service_date_yyyy_mm_dd_">Data de Serviço (dd-mm-yyyy)</string>
     <string name="service_cost_">Custo Serviço (€)</string>
     <string name="save_">Guardar</string>
     <string name="delete_maintenance_record">Apagar Registo de Manuntenção</string>
@@ -124,7 +124,7 @@
     <string name="the_email_adress_is_already_in_use_by_another_account">Este email já está associado a outro utilizador!</string>
     <string name="signup_unsuccessful_please_try_again">Erro ao registar, por favor tente outra vez</string>
     <string name="change_language">"🌍 Alterar Idioma "</string>
-    <string name="toggle_dark_mode">☯ Ativar Modo escuro</string>
+    <string name="toggle_dark_mode">☯Trocar Modo Escuro/Claro</string>
     <string name="log_out">🔒 Sair</string>
     <string name="already_have_an_account_sign_in_here">Já tem conta? Inicie sessão aqui</string>
     <string name="sign_up">Registe-se</string>

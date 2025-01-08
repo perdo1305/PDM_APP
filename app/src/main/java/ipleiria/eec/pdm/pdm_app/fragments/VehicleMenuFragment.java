@@ -132,14 +132,9 @@ public class VehicleMenuFragment extends Fragment {
             vehiclePhoto.setImageResource(R.drawable.ic_vehicle_placeholder);
         }
 
-        //Button editPhotoButton = new Button(getContext());
-        //editPhotoButton.setText("Edit Photo");
-        //editPhotoButton.setOnClickListener(v -> selectPhoto(vehiclePhoto));
-
         vehiclePhoto.setOnClickListener(v -> selectPhoto(vehiclePhoto));
 
         photoContainer.addView(vehiclePhoto);
-        //photoContainer.addView(editPhotoButton);
         layout.addView(photoContainer);
 
         builder.setView(layout);
@@ -155,9 +150,14 @@ public class VehicleMenuFragment extends Fragment {
                 vehicle.setDetails(details);
                 vehicle.setLicensePlate(licensePlate);
                 vehicle.setPhotoUri(photoUri);
-                vehicle.setVehicleId(vehicle.getVehicleId());
-                dbHelper.updateVehicle(vehicle);
-                vehicleAdapter.notifyItemChanged(position);
+
+                if (dbHelper.updateVehicle(vehicle)) {
+                    vehicleList.set(position, vehicle);
+                    vehicleAdapter.notifyItemChanged(position);
+                    //Toast.makeText(getContext(), R.string.vehicle_updated_successfully, Toast.LENGTH_SHORT).show();
+                } else {
+                    //Toast.makeText(getContext(), R.string.failed_to_update_vehicle, Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(getContext(), R.string.all__fields_are_required, Toast.LENGTH_SHORT).show();
             }

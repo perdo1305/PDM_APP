@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,14 +33,27 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import ipleiria.eec.pdm.pdm_app.R;
+
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 
 /**
  * Fragmento para exibir e gerenciar o menu de dados ao vivo.
  */
 public class LiveDataMenuFragment extends Fragment {
+
+    private TextView receivedString1Tv, receivedString2Tv;
 
     private TextView mStatusBlueTv, mPairedTv;
     private ListView lvNewDevices;
@@ -47,8 +61,23 @@ public class LiveDataMenuFragment extends Fragment {
     private ArrayList<String> mBTDevicesString = new ArrayList<>();
     private ArrayList<BluetoothDevice> mBTDevices = new ArrayList<>();
 
+
     private ActivityResultLauncher<Intent> enableBluetooth;
     private boolean isReceiverRegistered = false;
+
+    private BluetoothSocket mBluetoothSocket;
+    private InputStream mInputStream;
+    private OutputStream mOutputStream;
+    private boolean isReading = false;
+
+    private LineChart lineChart;
+    private LineDataSet rpmDataSet, kmhDataSet;
+    private LineData lineData;
+    private int lastX = 0;
+
+    // UUID for the serial port service
+    private static final UUID SERIAL_PORT_SERVICE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+
 
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @SuppressLint("MissingPermission")
@@ -90,6 +119,32 @@ public class LiveDataMenuFragment extends Fragment {
 
         mPairedTv.setVisibility(View.GONE);
         lvNewDevices.setVisibility(View.GONE);
+
+        // Initialize TextViews
+        receivedString1Tv = view.findViewById(R.id.receivedString1);
+        receivedString2Tv = view.findViewById(R.id.receivedString2);
+
+        // Initialize LineChart
+        lineChart = view.findViewById(R.id.lineChart);
+        rpmDataSet = new LineDataSet(new ArrayList<>(), "RPM");
+        kmhDataSet = new LineDataSet(new ArrayList<>(), "KM/H");
+        lineData = new LineData(rpmDataSet, kmhDataSet);
+        lineChart.setData(lineData);
+
+// Set colors for the datasets
+rpmDataSet.setColor(Color.parseColor("#88D498")); // Red color in hex
+kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
+
+        // Customize LineChart
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.WHITE); // Set X axis text color to white
+
+        YAxis leftAxis = lineChart.getAxisLeft();
+        leftAxis.setTextColor(Color.WHITE); // Set left Y axis text color to white
+
+        YAxis rightAxis = lineChart.getAxisRight();
+        rightAxis.setEnabled(false);
 
         mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
         initializeBluetoothLauncher();
@@ -178,12 +233,18 @@ public class LiveDataMenuFragment extends Fragment {
     public void onClickOn(View view) {
         mPairedTv.setVisibility(View.GONE);
         lvNewDevices.setVisibility(View.GONE);
+        if (!hasBluetoothPermissions()) {
+            requestPermissions(new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 1002);
+            return;
+        }
         if (!mBlueAdapter.isEnabled()) {
             showToast(getString(R.string.turning_on_bluetooth));
             Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             enableBluetooth.launch(intent);
+            mStatusBlueTv.setText("Bluetooth: ON");
         } else {
             showToast(getString(R.string.bluetooth_is_already_on));
+            mStatusBlueTv.setText("Bluetooth: ON");
         }
     }
 
@@ -200,11 +261,16 @@ public class LiveDataMenuFragment extends Fragment {
         lvNewDevices.setVisibility(View.GONE);
         if (mBlueAdapter.isEnabled()) {
             mBlueAdapter.disable();
+            if (mBluetoothSocket != null && mBluetoothSocket.isConnected()) {
+                stopReading();
+            }
             showToast(getString(R.string.turning_bluetooth_off));
+            mStatusBlueTv.setText("Bluetooth: OFF");
         } else {
             showToast(getString(R.string.bluetooth_is_already_off));
         }
     }
+
     @SuppressLint("MissingPermission")
     public void btnDiscover(View view) {
         if (!hasBluetoothPermissions()) return;
@@ -223,6 +289,7 @@ public class LiveDataMenuFragment extends Fragment {
         requireContext().registerReceiver(mBroadcastReceiver, discoverDevicesIntent);
         isReceiverRegistered = true;
 
+        mStatusBlueTv.setText("Bluetooth: Discovering devices...");
         showToast(getString(R.string.discovering_devices));
     }
 
@@ -268,18 +335,83 @@ public class LiveDataMenuFragment extends Fragment {
                 mBlueAdapter.cancelDiscovery();
             }
 
-            if (device.getUuids() == null || device.getUuids().length == 0) {
-                showToast(getString(R.string.device_does_not_provide_uuids));
-                return;
-            }
-
-            BluetoothSocket socket = device.createRfcommSocketToServiceRecord(device.getUuids()[0].getUuid());
-            socket.connect();
+            mBluetoothSocket = device.createRfcommSocketToServiceRecord(SERIAL_PORT_SERVICE_UUID);
+            mBluetoothSocket.connect();
+            mInputStream = mBluetoothSocket.getInputStream();
+            mOutputStream = mBluetoothSocket.getOutputStream();
+            isReading = true;
             showToast(getString(R.string.connected_to) + device.getName());
 
-        } catch (Exception e) {
+            // Start a new thread to read data
+            new Thread(this::readData).start();
+
+        } catch (IOException e) {
             Log.e(getString(R.string.bluetooth), getString(R.string.connection_failed), e);
             showToast(getString(R.string.failed_to_connect_to) + device.getName());
         }
     }
+
+    // Method to read data from the Bluetooth device
+    private void readData() {
+        byte[] buffer = new byte[1024];
+        int bytes;
+
+        while (isReading) {
+            try {
+                if (mInputStream.available() > 0) {
+                    bytes = mInputStream.read(buffer);
+                    String data = new String(buffer, 0, bytes);
+                    Log.d("BluetoothData", "Received: " + data);
+
+                    // Assuming the data is received as two strings separated by a comma
+                    String[] receivedStrings = data.split(",");
+                    if (receivedStrings.length >= 2) {
+                        String string1 = receivedStrings[0].trim();
+                        String string2 = receivedStrings[1].trim();
+
+                        getActivity().runOnUiThread(() -> {
+                            receivedString1Tv.setText("RPM: " + string1);
+                            receivedString2Tv.setText("KM/H: " + string2);
+                            addEntry(Double.parseDouble(string1), Double.parseDouble(string2));
+                        });
+                    }
+                }
+            } catch (IOException e) {
+                Log.e("BluetoothData", "Error reading data", e);
+                isReading = false;
+            }
+        }
+    }
+    // Method to stop reading data and close the connection
+    private void stopReading() {
+        isReading = false;
+        try {
+            if (mInputStream != null) mInputStream.close();
+            if (mOutputStream != null) mOutputStream.close();
+            if (mBluetoothSocket != null) mBluetoothSocket.close();
+        } catch (IOException e) {
+            Log.e("BluetoothData", "Error closing connection", e);
+        }
+    }
+
+    // Method to update the graph with new data
+    private void addEntry(double rpmValue, double kmhValue) {
+        rpmDataSet.addEntry(new Entry(lastX, (float) rpmValue));
+        kmhDataSet.addEntry(new Entry(lastX++, (float) kmhValue));
+        lineData.notifyDataChanged();
+        lineChart.notifyDataSetChanged();
+        lineChart.setVisibleXRangeMaximum(50);
+        lineChart.moveViewToX(lineData.getEntryCount());
+    }
+
+    // Method to update the graph with new data
+//    private void addEntry(double value) {
+//        series.appendData(new DataPoint(lastX++, value), true, 100);
+//    }
+
+    // Example method to handle Bluetooth data
+//    private void onBluetoothDataReceived(double value) {
+//        addEntry(value);
+//    }
+
 }
