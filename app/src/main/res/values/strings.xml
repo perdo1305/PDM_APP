@@ -138,5 +138,7 @@
     <string name="add_maintenance_record_">Add Maintenance Record</string>
     <string name="vehicle_deleted_successfully">vehicle delete\n</string>
     <string name="no">No</string>
+    <string name="please_select_a_vehicle_first">Please select a vehicle first!</string>
+    <string name="location_permission_denied">Location permission denied</string>
 
 </resources>

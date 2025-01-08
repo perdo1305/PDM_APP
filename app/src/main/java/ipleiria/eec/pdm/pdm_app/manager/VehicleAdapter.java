@@ -67,6 +67,12 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
         return new VehicleViewHolder(view);
     }
 
+    /**
+     * Vincula os dados do veículo ao ViewHolder.
+     *
+     * @param holder o ViewHolder do veículo
+     * @param position a posição do veículo na lista
+     */
     @Override
     public void onBindViewHolder(@NonNull VehicleViewHolder holder, int position) {
         Vehicle vehicle = vehicleList.get(position);
@@ -89,6 +95,11 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
         });
     }
 
+    /**
+ * Retorna o número total de veículos na lista.
+ *
+ * @return o número total de veículos
+ */
     @Override
     public int getItemCount() {
         return vehicleList.size();
