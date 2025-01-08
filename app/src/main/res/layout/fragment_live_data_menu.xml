@@ -49,7 +49,7 @@
             android:text="@string/discover_devices" />
     </LinearLayout>
 
-    <!-- Paired Devices Header -->
+
     <TextView
         android:id="@+id/pairedTv"
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
         android:visibility="gone"
         android:paddingVertical="8dp" />
 
-    <!-- ListView for New Devices -->
+
     <ListView
         android:id="@+id/listViewDevices"
         android:layout_width="match_parent"
@@ -71,7 +71,7 @@
         android:dividerHeight="1dp"
         android:padding="8dp" />
 
-    <!-- TextViews to display received strings -->
+
     <TextView
         android:id="@+id/receivedString1"
         android:layout_width="match_parent"
@@ -88,7 +88,7 @@
         android:textSize="16sp"
         android:paddingVertical="8dp" />
 
-    <!-- LineChart to display the graph -->
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
         android:layout_width="match_parent"

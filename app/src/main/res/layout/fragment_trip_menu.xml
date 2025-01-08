@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Search View -->
+
     <SearchView
         android:id="@+id/search_view_trip"
         android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         android:iconifiedByDefault="false"
         android:queryHint="Search trips..." />
 
-    <!-- Google Map -->
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -21,7 +21,6 @@
         />
 
 
-    <!-- Recycler View -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/trip_recycler_view"
         android:layout_width="match_parent"
@@ -29,7 +28,7 @@
         android:layout_below="@id/map"
         android:layout_marginTop="8dp" />
 
-    <!-- Floating Action Button -->
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_trip"
         android:layout_width="wrap_content"

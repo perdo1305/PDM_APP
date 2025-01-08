@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:padding="12dp">
 
-    <!-- Vehicle Photo -->
+
     <ImageView
         android:id="@+id/vehicle_photo"
         android:layout_width="64dp"
@@ -14,7 +14,7 @@
         android:src="@drawable/ic_vehicle_placeholder"
         android:layout_marginEnd="12dp" />
 
-    <!-- Vehicle Details -->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
