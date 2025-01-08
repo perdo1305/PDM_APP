@@ -10,9 +10,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +21,7 @@ import ipleiria.eec.pdm.pdm_app.MainActivity;
 import ipleiria.eec.pdm.pdm_app.R;
 
 /**
- * Atividade de inscrição para o aplicativo.
+ * Atividade para inscrição de novos utilizadores.
  */
 public class SignUpActivity extends AppCompatActivity {
     EditText emailId, password, password2;

@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -94,10 +93,10 @@ public class VehicleMenuFragment extends Fragment {
     }
 
     /**
-     * Shows a dialog to edit a vehicle.
+     * Mostra um diálogo para editar um veículo.
      *
-     * @param position the position of the vehicle to edit
-     * @param vehicle the vehicle to edit
+     * @param position a posição do veículo a ser editado
+     * @param vehicle o veículo a ser editado
      */
     private void showEditVehicleDialog(int position, Vehicle vehicle) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -169,9 +168,9 @@ public class VehicleMenuFragment extends Fragment {
     }
 
     /**
-     * Opens the photo picker to select a photo for the vehicle.
+     * abre um diálogo para selecionar uma foto.
      *
-     * @param imageView the ImageView to display the selected photo
+     * @param imageView a ImageView para exibir a foto selecionada
      */
     private void selectPhoto(ImageView imageView) {
         selectedImageView = imageView;
@@ -180,6 +179,14 @@ public class VehicleMenuFragment extends Fragment {
         startActivityForResult(intent, 101);
     }
 
+    /**
+     * manipula o resultado da seleção de uma foto.
+     *
+     * @param requestCode o código da solicitação
+     * @param resultCode o código do resultado
+     * @param data os dados retornados pela atividade
+     *
+     * */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -194,7 +201,7 @@ public class VehicleMenuFragment extends Fragment {
     }
 
     /**
-     * Shows a dialog to add a new vehicle.
+     * Mostra um diálogo para adicionar um novo veículo.
      */
     private void showAddVehicleDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());

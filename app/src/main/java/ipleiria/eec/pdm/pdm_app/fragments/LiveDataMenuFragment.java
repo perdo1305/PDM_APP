@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,8 +23,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -78,7 +75,9 @@ public class LiveDataMenuFragment extends Fragment {
     // UUID for the serial port service
     private static final UUID SERIAL_PORT_SERVICE_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-
+    /**
+     * Receptor de transmissão para receber dados de dispositivos Bluetooth.
+     */
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @SuppressLint("MissingPermission")
         @Override
@@ -131,26 +130,28 @@ public class LiveDataMenuFragment extends Fragment {
         lineData = new LineData(rpmDataSet, kmhDataSet);
         lineChart.setData(lineData);
 
-// Set colors for the datasets
-rpmDataSet.setColor(Color.parseColor("#88D498")); // Red color in hex
-kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
+        // Set colors for the datasets
+        rpmDataSet.setColor(Color.parseColor("#88D498")); // Red color in hex
+        kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
 
-        // Customize LineChart
+        //cenas do grafico
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.WHITE); // Set X axis text color to white
+        xAxis.setTextColor(Color.WHITE);
 
         YAxis leftAxis = lineChart.getAxisLeft();
-        leftAxis.setTextColor(Color.WHITE); // Set left Y axis text color to white
+        leftAxis.setTextColor(Color.WHITE);
 
         YAxis rightAxis = lineChart.getAxisRight();
         rightAxis.setEnabled(false);
 
+        //cenas do bluetooth
         mBlueAdapter = BluetoothAdapter.getDefaultAdapter();
         initializeBluetoothLauncher();
         setupBluetoothStatus();
         checkBTPermissions();
 
+        //botoes
         Button btnTurnOn = view.findViewById(R.id.btnTurnOn);
         btnTurnOn.setOnClickListener(this::onClickOn);
 
@@ -169,14 +170,11 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
      * Inicializa o lançador de atividade para habilitar o Bluetooth.
      */
     private void initializeBluetoothLauncher() {
-        enableBluetooth = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    showToast(getString(R.string.bluetooth_is_on));
-                } else {
-                    showToast(getString(R.string.could_not_turn_on_bluetooth));
-                }
+        enableBluetooth = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                showToast(getString(R.string.bluetooth_is_on));
+            } else {
+                showToast(getString(R.string.could_not_turn_on_bluetooth));
             }
         });
     }
@@ -215,7 +213,7 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
      * Verifica e solicita permissões de Bluetooth, se necessário.
      */
     private void checkBTPermissions() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !hasBluetoothPermissions()) {
+        if (!hasBluetoothPermissions()) {
             requestPermissions(new String[]{
                     Manifest.permission.BLUETOOTH_CONNECT,
                     Manifest.permission.BLUETOOTH_SCAN,
@@ -230,6 +228,7 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
      *
      * @param view a view que foi clicada
      */
+    @SuppressLint("SetTextI18n")
     public void onClickOn(View view) {
         mPairedTv.setVisibility(View.GONE);
         lvNewDevices.setVisibility(View.GONE);
@@ -271,7 +270,12 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
         }
     }
 
-    @SuppressLint("MissingPermission")
+    /**
+     * Manipula o clique no botão para descobrir dispositivos Bluetooth.
+     *
+     * @param view a view que foi clicada
+     */
+    @SuppressLint({"MissingPermission", "SetTextI18n"})
     public void btnDiscover(View view) {
         if (!hasBluetoothPermissions()) return;
 
@@ -319,6 +323,15 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
     }
 
     /**
+     * Chamado quando o fragmento é destruído.
+     */
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        stopReading();
+    }
+
+    /**
      * Conecta-se a um dispositivo Bluetooth.
      *
      * @param device o dispositivo Bluetooth ao qual se conectar
@@ -351,10 +364,10 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
         }
     }
 
-
     /**
      * Método para ler dados do dispositivo Bluetooth.
      */
+    @SuppressLint("SetTextI18n")
     private void readData() {
         byte[] buffer = new byte[1024];
         int bytes;
@@ -390,7 +403,6 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
     /**
      * Método para parar de ler dados e fechar a conexão.
      */
-
     private void stopReading() {
         isReading = false;
         try {
@@ -401,7 +413,6 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
             Log.e("BluetoothData", "Error closing connection", e);
         }
     }
-
 
 /**
  * Método para atualizar o gráfico com novos dados.
@@ -414,15 +425,4 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
         lineChart.setVisibleXRangeMaximum(50);
         lineChart.moveViewToX(lineData.getEntryCount());
     }
-
-    // Method to update the graph with new data
-//    private void addEntry(double value) {
-//        series.appendData(new DataPoint(lastX++, value), true, 100);
-//    }
-
-    // Example method to handle Bluetooth data
-//    private void onBluetoothDataReceived(double value) {
-//        addEntry(value);
-//    }
-
 }

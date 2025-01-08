@@ -9,12 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import ipleiria.eec.pdm.pdm_app.R;
 
 /**
- * Atividade de login para o aplicativo.
+ * Atividade de login para autenticaçao
  */
 public class LoginActivity extends AppCompatActivity {
     EditText emailId, password;

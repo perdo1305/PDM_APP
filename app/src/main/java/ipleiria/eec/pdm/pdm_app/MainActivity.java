@@ -183,11 +183,11 @@ public class MainActivity extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.dialog_about, null);
         builder.setView(view);
 
-        // Define as informações do projeto
+        //informações do projeto
         TextView sobreTexto = view.findViewById(R.id.about_text);
         sobreTexto.setText(R.string.this_project_is_an_application_that_manages_vehicles_developed_by_bernardo_santos_and_pedro_ferreira_for_more_information_visit_our_github_repository);
         sobreTexto.setMovementMethod(LinkMovementMethod.getInstance());
-        // Define o link para o GitHub
+        // link para o GitHub
         TextView linkGitHub = view.findViewById(R.id.github_link);
         linkGitHub.setText("https://github.com/perdo1305/PDM_APP");
         linkGitHub.setMovementMethod(LinkMovementMethod.getInstance());

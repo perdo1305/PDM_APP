@@ -85,7 +85,7 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
 
     private LatLng selectedStartLocation;
     private LatLng selectedEndLocation;
-    private boolean isSelectingStart = true; // Tracks whether the user is selecting the start or end location
+    private boolean isSelectingStart = true;
 
     private EditText inputStartLat, inputStartLng, inputEndLat, inputEndLng;
     @Override
@@ -215,17 +215,16 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
             startLocationUpdates();
         } else {
             ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
         }
-        // Enable map clicks for selecting locations
+        // Enable map click
         mMap.setOnMapClickListener(latLng -> {
             if (isSelectingStart) {
-                // Set the start location
+                // start location
                 selectedStartLocation = latLng;
                 if (startMarker != null) startMarker.remove(); // Remove existing marker
                 startMarker = mMap.addMarker(new MarkerOptions()
@@ -233,7 +232,7 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
                         .title(getString(R.string.start_location)));
                 Toast.makeText(getContext(), R.string.start_location_selected, Toast.LENGTH_SHORT).show();
             } else {
-                // Set the end location
+                // end location
                 selectedEndLocation = latLng;
                 if (endMarker != null) endMarker.remove(); // Remove existing marker
                 endMarker = mMap.addMarker(new MarkerOptions()
@@ -242,7 +241,7 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
                 Toast.makeText(getContext(), R.string.end_location_selected, Toast.LENGTH_SHORT).show();
             }
 
-            // Adjust the camera to show the selected markers
+            // Adjust the camera
             if (selectedStartLocation != null && selectedEndLocation != null) {
                 mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
                         new LatLngBounds.Builder()
@@ -252,6 +251,14 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
             }
         });
     }
+    /**
+     * Manipula os resultados da solicitação de permissão.
+     *
+     * @param requestCode o código de solicitação
+     * @param permissions as permissões solicitadas
+     * @param grantResults os resultados da solicitação de permissão
+     *
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -267,6 +274,9 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * Inicia as atualizações de localização.
+     */
     @SuppressLint("MissingPermission")
     private void startLocationUpdates() {
         LocationRequest locationRequest = LocationRequest.create();
@@ -278,21 +288,24 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     }
 
 
+//    /**
+//     * Obtém a localização atual do dispositivo e move a câmera para lá.
+//     */
+//    @SuppressLint("MissingPermission")
+//    private void getCurrentLocation() {
+//        fusedLocationClient.getLastLocation()
+//                .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
+//                    @Override
+//                    public void onSuccess(Location location) {
+//                        if (location != null) {
+//                            LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+//                            mMap.addMarker(new MarkerOptions().position(currentLatLng).title("My Location"));
+//                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
+//                        }
+//                    }
+//                });
+//    }
 
-    @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                            LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-                            mMap.addMarker(new MarkerOptions().position(currentLatLng).title("My Location"));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
-                        }
-                    }
-                });
-    }
     /**
      * Exibe um diálogo para adicionar uma nova viagem.
      */
@@ -318,34 +331,34 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     inputFuelCost.setInputType(InputType.TYPE_CLASS_TEXT);
     layout.addView(inputFuelCost);
 
-    // Coordinates fields (start and end locations)
+    // Coordinates fields
     inputStartLat = new EditText(getContext());
     inputStartLat.setHint(R.string.start_latitude);
     inputStartLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-    inputStartLat.setEnabled(false); // Make it non-editable
+    inputStartLat.setEnabled(false);
     layout.addView(inputStartLat);
 
     inputStartLng = new EditText(getContext());
     inputStartLng.setHint(R.string.start_longitude);
     inputStartLng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-    inputStartLng.setEnabled(false); // Make it non-editable
+    inputStartLng.setEnabled(false);
     layout.addView(inputStartLng);
 
     inputEndLat = new EditText(getContext());
     inputEndLat.setHint(R.string.end_latitude);
     inputEndLat.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-    inputEndLat.setEnabled(false); // Make it non-editable
+    inputEndLat.setEnabled(false);
     layout.addView(inputEndLat);
 
     inputEndLng = new EditText(getContext());
     inputEndLng.setHint(R.string.end_longitude);
     inputEndLng.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-    inputEndLng.setEnabled(false); // Make it non-editable
+    inputEndLng.setEnabled(false);
     layout.addView(inputEndLng);
 
     builder.setView(layout);
 
-    // Buttons for location selection
+    // Buttons
     Button btnStartLocation = new Button(getContext());
     btnStartLocation.setText(R.string.select_start_location);
     layout.addView(btnStartLocation);
@@ -354,16 +367,16 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
     btnEndLocation.setText(R.string.select_end_location);
     layout.addView(btnEndLocation);
 
-    // Start location selection
+    // Start location
     btnStartLocation.setOnClickListener(v -> {
         Intent intent = new Intent(getContext(), MapSelectionActivity.class);
-        startActivityForResult(intent, 101); // Request code for start location
+        startActivityForResult(intent, 101); // code for start location
     });
 
-    // End location selection
+    // End location
     btnEndLocation.setOnClickListener(v -> {
         Intent intent = new Intent(getContext(), MapSelectionActivity.class);
-        startActivityForResult(intent, 102); // Request code for end location
+        startActivityForResult(intent, 102); //code for end location
     });
 
     builder.setPositiveButton(R.string.add, (dialog, which) -> {
@@ -375,15 +388,15 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
                 destination.isEmpty() || distance.isEmpty() || fuelCost.isEmpty()) {
             Toast.makeText(getContext(), R.string.please_fill_in_all_fields_and_select_both_start_and_end_locations, Toast.LENGTH_SHORT).show();
         } else {
-            // Add the new trip to the original list
+            // new trip
             Trip newTrip = new Trip(destination, distance, fuelCost, selectedStartLocation, selectedEndLocation);
 
             tripList.add(newTrip);
 
-            // Notify the adapter about the new item
+            // Notify the adapter
             tripAdapter.notifyItemInserted(tripList.size() - 1);
 
-            // Update the map with the new trip
+            // Update the map
             updateMarkers(selectedStartLocation, selectedEndLocation);
         }
     });
@@ -409,15 +422,15 @@ public class TripMenuFragment extends Fragment implements OnMapReadyCallback {
         tripAdapter.updateList(filteredList);
     }
 
-    /**
-     * Atualiza a lista de viagens e notifica o adapter.
-     *
-     * @param newList a nova lista de viagens
-     */
-    public void updateList(List<Trip> newList) {
-        this.tripList = newList; // Replace the adapter's list
-        tripAdapter.notifyDataSetChanged(); // Notify the adapter
-    }
+//    /**
+//     * Atualiza a lista de viagens e notifica o adapter.
+//     *
+//     * @param newList a nova lista de viagens
+//     */
+//    public void updateList(List<Trip> newList) {
+//        this.tripList = newList;
+//        tripAdapter.notifyDataSetChanged();
+//    }
 
     /**
      * Manipula os resultados da atividade MapSelectionActivity.

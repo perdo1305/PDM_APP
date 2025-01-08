@@ -13,7 +13,7 @@ import java.util.List;
 import ipleiria.eec.pdm.pdm_app.R;
 
 /**
- * Classe Adapter para exibir uma lista de viagens em um RecyclerView.
+ * Classe Adapter para exibir uma lista de viagens numa RecyclerView.
  */
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder> {
     private List<Trip> tripList;
@@ -27,12 +27,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     public TripAdapter(List<Trip> tripList) {
         this.tripList = tripList;
     }
-/**
- * Método chamado quando o ViewHolder é vinculado a uma posição.
- *
- * @param holder o ViewHolder a ser vinculado
- * @param position a posição do item no adapter
- */
+
+    /**
+     * Cria um novo TripViewHolder para exibir um item de viagem.
+     * @param parent o viewgroup ao qual a nova view será anexada
+     * @param viewType o tipo de view do novo item
+     *
+     * @return o novo TripViewHolder
+     */
     @NonNull
     @Override
     public TripViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,9 +44,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
 /**
  * Cria um novo ViewHolder para a lista de viagens.
  *
- * @param parent o ViewGroup ao qual a nova View será adicionada após ser inflada
- * @param viewType o tipo de view da nova View
- * @return um novo TripViewHolder que contém a View para a lista de viagens
+ * @param holder o ViewHolder a ser atualizado
+ * @param position a posição do item na lista
+ *
  */
     @Override
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
@@ -121,7 +123,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
      * @param newList a nova lista de viagens
      */
     public void updateList(List<Trip> newList) {
-        this.tripList = newList; // Atualiza a referência da lista
-        notifyDataSetChanged();  // Notifica o RecyclerView sobre as mudanças
+        this.tripList = newList; // Atualiza a lista
+        notifyDataSetChanged();  // Notifica o RecyclerView
     }
 }

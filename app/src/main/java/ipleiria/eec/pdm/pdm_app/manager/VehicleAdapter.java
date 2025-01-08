@@ -16,7 +16,7 @@ import java.util.List;
 import ipleiria.eec.pdm.pdm_app.R;
 
 /**
- * Classe Adapter para exibir uma lista de veículos em um RecyclerView.
+ * Classe Adapter para exibir uma lista de veículos numa RecyclerView.
  */
 public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleViewHolder> {
     private List<Vehicle> vehicleList;
@@ -60,6 +60,13 @@ public class VehicleAdapter extends RecyclerView.Adapter<VehicleAdapter.VehicleV
         void onDeleteVehicle(int position);
     }
 
+    /**
+     * Cria um novo VehicleViewHolder para exibir um item de veículo.
+     * @param parent o viewgroup ao qual a nova view será anexada
+     * @param viewType o tipo de view do novo item
+     *
+     * @return
+     */
     @NonNull
     @Override
     public VehicleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

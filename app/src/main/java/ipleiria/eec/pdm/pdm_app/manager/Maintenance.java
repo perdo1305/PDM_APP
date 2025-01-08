@@ -77,8 +77,28 @@ public class Maintenance {
     public void setServiceCost(String serviceCost) {
         this.serviceCost = serviceCost;
     }
+
+    /**
+     * Devolve o ID da manutenção.
+     * @return o ID da manutenção
+     */
     public int getMaintenanceId() { return maintenanceId; }
+
+    /**
+     * Define o ID da manutenção.
+     * @param maintenanceId o novo ID da manutenção
+     */
     public void setMaintenanceId(int maintenanceId) { this.maintenanceId = maintenanceId; }
+
+    /**
+     * Devolve o ID do veículo.
+     * @return o ID do veículo
+     */
     public int getVehicleId() { return vehicleId; }
+
+    /**
+     * Define o ID do veículo.
+     * @param vehicleId o novo ID do veículo
+     */
     public void setVehicleId(int vehicleId) { this.vehicleId = vehicleId; }
 }

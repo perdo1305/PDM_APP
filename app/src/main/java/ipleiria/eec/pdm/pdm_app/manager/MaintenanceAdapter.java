@@ -13,14 +13,14 @@ import java.util.List;
 import ipleiria.eec.pdm.pdm_app.R;
 
 /**
- * Classe Adapter para exibir uma lista de registos de manutenção em um RecyclerView.
+ * Classe Adapter para exibir uma lista de registos de manutenção numa RecyclerView.
  */
 public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.MaintenanceViewHolder> {
     private List<Maintenance> maintenanceList;
     private OnMaintenanceClickListener onMaintenanceClickListener;
 
     /**
-     * Constrói um novo MaintenanceAdapter com a lista especificada de registos de manutenção.
+     * Constrói um novo MaintenanceAdapter com a lista de registos de manutenção.
      *
      * @param maintenanceList a lista de registos de manutenção a ser exibida
      */
@@ -28,6 +28,14 @@ public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.
         this.maintenanceList = maintenanceList;
     }
 
+
+    /**
+     * Cria um novo MaintenanceViewHolder para exibir um item de manutenção.
+     * @param parent a view pai à qual a nova view será anexada
+     * @param viewType o tipo de view do novo item
+     *
+     * @return um novo MaintenanceViewHolder que exibe um item de manutenção
+     */
     @NonNull
     @Override
     public MaintenanceViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,6 +43,14 @@ public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.
         return new MaintenanceViewHolder(view);
     }
 
+
+    /**
+     * Atualiza o conteúdo de um MaintenanceViewHolder para exibir um item de manutenção.
+     *
+     * @param holder o MaintenanceViewHolder a ser atualizado
+     * @param position a posição do item de manutenção na lista
+     *
+     */
     @Override
     public void onBindViewHolder(@NonNull MaintenanceViewHolder holder, int position) {
         Maintenance maintenance = maintenanceList.get(position);
@@ -56,6 +72,10 @@ public class MaintenanceAdapter extends RecyclerView.Adapter<MaintenanceAdapter.
         });
     }
 
+    /**
+     * Devolve o número de registos de manutenção na lista.
+     * @return o número de registos de manutenção na lista
+     */
     @Override
     public int getItemCount() {
         return maintenanceList.size();

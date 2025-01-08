@@ -269,6 +269,4 @@ public class MaintenanceMenuFragment extends Fragment {
                 .setNegativeButton(R.string.no, null)
                 .show();
     }
-
-
 }

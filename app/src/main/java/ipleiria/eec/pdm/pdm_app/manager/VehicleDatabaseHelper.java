@@ -13,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe Helper para gerenciar o banco de dados de veículos.
+ * Classe Helper para gerenciar o banco de dados de veículos e manutensoes.
  */
 public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "vehicles.db";
-    private static final int DATABASE_VERSION = 3; // Incremented version for new Maintenance table
+    private static final int DATABASE_VERSION = 3;
 
     // Vehicle Table
     private static final String TABLE_VEHICLES = "vehicles";
@@ -44,6 +44,11 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Cria as tabelas do banco de dados.
+     *
+     * @param db o banco de dados
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_VEHICLES_TABLE = "CREATE TABLE " + TABLE_VEHICLES + "("
@@ -64,6 +69,12 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_MAINTENANCE_TABLE);
     }
 
+    /**
+     * Atualiza o banco de dados.
+     * @param db database
+     * @param oldVersion database velha
+     * @param newVersion database nova
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VEHICLES);
@@ -121,7 +132,7 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     /**
      * Exclui um veículo do banco de dados pelo nome.
      *
-     * @param name o nome do veículo a ser excluído
+     * @param vehicleId o id do veículo a ser excluído
      */
     public void deleteVehicle(int vehicleId) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -129,6 +140,12 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    /**
+     * Atualiza um veículo no banco de dados.
+     * @param vehicle veículo a ser atualizado
+     * @return true se a atualização foi bem sucedida, false caso contrário
+     */
     public boolean updateVehicle(Vehicle vehicle) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -143,12 +160,20 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
     }
     /* Maintenance */
 
+    /**
+     * Exclui um registro de manutenção do banco de dados.
+     * @param maintenanceId o id da manutenção a ser excluída
+     */
     public void deleteMaintenance(int maintenanceId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_MAINTENANCE, COLUMN_MAINTENANCE_ID + " = ?", new String[]{String.valueOf(maintenanceId)});
         db.close();
     }
 
+    /**
+     * Adiciona um novo registro de manutenção ao banco de dados.
+     * @param maintenance o registro de manutenção a ser adicionado
+     */
     public void insertMaintenance(Maintenance maintenance) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -160,6 +185,9 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Atualiza um registro de manutenção no banco de dados.
+     */
     @SuppressLint("Range")
     public List<Maintenance> getAllMaintenance() {
         List<Maintenance> maintenanceList = new ArrayList<>();
@@ -183,6 +211,11 @@ public class VehicleDatabaseHelper extends SQLiteOpenHelper {
         return maintenanceList;
     }
 
+    /**
+     * Retorna uma lista de manutenções para um veículo específico.
+     * @param vehicleId o id do veículo
+     * @return a lista de manutenções
+     */
     public List<Maintenance> getMaintenanceByVehicleId(int vehicleId) {
         List<Maintenance> maintenanceList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
