@@ -233,6 +233,10 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
     public void onClickOn(View view) {
         mPairedTv.setVisibility(View.GONE);
         lvNewDevices.setVisibility(View.GONE);
+        if (!hasBluetoothPermissions()) {
+            requestPermissions(new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 1002);
+            return;
+        }
         if (!mBlueAdapter.isEnabled()) {
             showToast(getString(R.string.turning_on_bluetooth));
             Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -240,6 +244,7 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
             mStatusBlueTv.setText("Bluetooth: ON");
         } else {
             showToast(getString(R.string.bluetooth_is_already_on));
+            mStatusBlueTv.setText("Bluetooth: ON");
         }
     }
 
@@ -256,7 +261,7 @@ kmhDataSet.setColor(Color.parseColor("#F3E9D2")); // Blue color in hex
         lvNewDevices.setVisibility(View.GONE);
         if (mBlueAdapter.isEnabled()) {
             mBlueAdapter.disable();
-            if(mBluetoothSocket.isConnected()) {
+            if (mBluetoothSocket != null && mBluetoothSocket.isConnected()) {
                 stopReading();
             }
             showToast(getString(R.string.turning_bluetooth_off));
